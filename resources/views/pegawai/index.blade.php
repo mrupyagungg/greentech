@@ -37,6 +37,8 @@
                                             <th>Kode Pegawai</th>
                                             <th>Nama</th>
                                             <th>Alamat</th>
+                                            <th>jenis Kelamin</th>
+                                            <th>NO Hp</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -45,23 +47,27 @@
                                             <th>Kode Pegawai</th>
                                             <th>Nama</th>
                                             <th>Alamat</th>
+                                            <th>Jenis Kelamin</th>
+                                            <th>NO Hp</th>
                                             <th>Aksi</th>
                                         </tr>
-                                    </tfoot>
-                                    <tbody>
+                                 </tfoot>
+                                <tbody>
                                     @foreach ($pegawai as $p)
                                         <tr>
                                             <td>{{ $p->kode_pegawai }}</td>
                                             <td>{{ $p->nama_pegawai }}</td>
                                             <td>{{ $p->alamat_pegawai }}</td>
+                                            <td>{{ $p->jenis_kelamin }}</td>
+                                            <td>{{ $p->no_hp }}</td>
                                             <td>
-                                                    <a href="{{ route('pegawai.edit', $p->id) }}" class="btn btn-success btn-circle btn">
-                                                        <i class="fas fa-check"></i>
-                                                    </a>
+                                                <a href="{{ route('pegawai.edit', $p->id) }}" class="btn btn-success btn-circle btn">
+                                                    <i class="fas fa-check"></i>
+                                                </a>
 
-                                                    <a href="#" onclick="deleteConfirm(this); return false;" data-id="{{ $p->id }}" class="btn btn-danger btn-circle btn">
-                                                        <i class="fas fa-trash"></i>
-                                                    </a>
+                                                <a href="#" onclick="deleteConfirm(this); return false;" data-id="{{ $p->id }}" class="btn btn-danger btn-circle btn">
+                                                    <i class="fas fa-trash"></i>
+                                                </a>
 
                                             </td>
                                         </tr>

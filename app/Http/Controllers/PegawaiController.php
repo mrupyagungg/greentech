@@ -43,8 +43,11 @@ class PegawaiController extends Controller
     {
         // Validasi data yang diterima dari formulir jika diperlukan
         $request->validate([
+            'kode_pegawai' => 'required',
             'nama_pegawai' => 'required|string',
             'alamat_pegawai' => 'required|string',
+            'jenis_kelamin' => 'required|string',
+            'no_hp' => 'required|string',
         ]);
         
         // Simpan data ke dalam database
@@ -52,6 +55,8 @@ class PegawaiController extends Controller
             'kode_pegawai' => $request->kode_pegawai,
             'nama_pegawai' => $request->nama_pegawai,
             'alamat_pegawai' => $request->alamat_pegawai,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'no_hp' => $request->no_hp,
         ]);
         
         // Arahkan pengguna ke halaman home
@@ -94,8 +99,10 @@ class PegawaiController extends Controller
         //digunakan untuk validasi kemudian kalau ok tidak ada masalah baru diupdate ke db
         $validated = $request->validate([
             'kode_pegawai' => 'required',
-            'nama_pegawai' => 'required|max:255',
-            'alamat_pegawai' => 'required',
+            'nama_pegawai' => 'required|string|max:255',
+            'alamat_pegawai' => 'required|string',
+            'jenis_kelamin' => 'required|string',
+            'no_hp' => 'required|string',
         ]);
     
         $pegawaimodel->update($validated);

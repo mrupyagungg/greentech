@@ -34,11 +34,19 @@
                     <div class="mb-3"><label for="namapegawailabel">Nama pegawai</label>
                     <input class="form-control form-control-solid" id="nama_pegawai" name="nama_pegawai" type="text" placeholder="Contoh: Toko Mukena Sejuk Menenangkan" value="{{old('nama_pegawai')}}">
                     </div>
-                    
-        
+
                     <div class="mb-0"><label for="alamatpegawailabel">Alamat pegawai</label>
                         <textarea class="form-control form-control-solid" id="alamat_pegawai" name="alamat_pegawai" rows="3" placeholder="Cth: Jl Pelajar Pejuan 45">{{old('alamat_pegawai')}}</textarea>
                     </div>
+                    
+                    <div class="mb-3"><label for="jeniskelaminlabel">Jenis Kelamin</label>
+                    <input class="form-control form-control-solid" id="jenis_kelamin" name="jenis_kelamin" type="text"  value="{{old('jenis_kelamin')}}">
+                    </div>
+                    
+                    <div class="mb-3"><label for="nohplabel">Nomor HP</label>
+                    <input class="form-control form-control-solid" id="no_hp" name="no_hp" type="text" placeholder="Contoh: 081234567890" value="{{old('no_hp')}}">
+                    </div>
+                    
                     <br>
                     <!-- untuk tombol simpan -->
                     

@@ -18,6 +18,8 @@ class CreatePegawaiTable extends Migration
             $table->string('kode_pegawai', 6)->unique();
             $table->string('nama_pegawai', 50)->unique();
             $table->string('alamat_pegawai', 100);
+            $table->string('jenis_kelamin', 100);
+            $table->string('no_hp', 100);
             $table->timestamps();
         });
     }

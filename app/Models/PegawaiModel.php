@@ -13,13 +13,14 @@ class PegawaiModel extends Model
     protected $table = 'pegawai';
     
     // List kolom yang bisa diisi
-    protected $fillable = ['kode_pegawai', 'nama_pegawai', 'alamat_pegawai'];
+    protected $fillable = ['kode_pegawai', 'nama_pegawai', 'alamat_pegawai', 'jenis_kelamin', 'no_hp'];
+
 
     // Method untuk mendapatkan kode pegawai secara otomatis
     public static function getKodepegawai()
     {
         // Query kode pegawai
-        $sql = "SELECT IFNULL(MAX(kode_pegawai), 'PR-000') as kode_pegawai 
+        $sql = "SELECT IFNULL(MAX(kode_pegawai), 'PG-000') as kode_pegawai 
                 FROM pegawai";
         $kodepegawai = DB::select($sql);
 
