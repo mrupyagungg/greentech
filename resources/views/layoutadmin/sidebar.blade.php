@@ -60,7 +60,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url('perusahaan') }}" aria-expanded="false">
+                <a class="sidebar-link" href="{{ url('barang') }}" aria-expanded="false">
                     <span>
                         <i class="ti ti-cards"></i>
                     </span>
@@ -72,7 +72,7 @@
                     <span class="hide-menu">Transaksi</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ url('coa') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ url('pemasukan') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-arrow-right"></i>
                         </span>
