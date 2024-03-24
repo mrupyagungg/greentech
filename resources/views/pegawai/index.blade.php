@@ -10,9 +10,26 @@
             <div class="card-body">
               <div class="row">
                 <div class="col-md-12">
-                  <h5 class="card-title fw-semibold mb-4">Data Pegawai</h5>
-                  <div class="card">
+                  <h5 class="card-title fw-semibold mb-4">Daftar Data Pegawai</h5>
+                  <!-- Alert jika data berhasil ditambahkan -->
 
+                  @if(session('success'))
+                     <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%;"></div>
+                        </div>
+                        <strong>{{ session('success') }}</strong>
+                        <button type="button"  data-bs-dismiss="alert" ></button>
+                         </div>
+                    @endif
+                <script>
+                    // Munculkan alert
+                    $(document).ready(function(){
+                        // Cari elemen alert dengan kelas .alert-success
+                        $('.alert-success').fadeIn().delay(3000).fadeOut(); // Atur waktu muncul dan hilangnya alert
+                    });
+                </script>
+                  <div class="card">
                         <!-- Card Header - Dropdown -->
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                             <h6 class="m-0 font-weight-bold text-primary">Master Data pegawai</h6>
@@ -65,9 +82,10 @@
                                                     <i class="fas fa-check"></i>
                                                 </a>
 
-                                                <a href="#" onclick="deleteConfirm(this); return false;" data-id="{{ $p->id }}" class="btn btn-danger btn-circle btn">
+                                                <a href="#" onclick="deleteConfirm(this); return false;" data-id="{{ $p->id }}" data-nama="{{ $p->nama_pegawai }}" class="btn btn-danger btn-circle btn">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
+                                                
 
                                             </td>
                                         </tr>
@@ -86,33 +104,23 @@
           </div>
         </div>
 
-
         <script>
-            function deleteConfirm(e){
-                var tomboldelete = document.getElementById('btn-delete')  
-                id = e.getAttribute('data-id');
+            function deleteConfirm(e) {
+            var tomboldelete = document.getElementById('btn-delete');  
+            id = e.getAttribute('data-id');
+            nama = e.getAttribute('data-nama'); // Menambahkan atribut data-nama untuk mendapatkan nama pegawai
 
-                // const str = 'Hello' + id + 'World';
-                var url3 = "{{url('pegawai/destroy/')}}";
-                var url4 = url3.concat("/",id);
-                // console.log(url4);
+            var url3 = "{{url('pegawai/destroy/')}}";
+            var url4 = url3.concat("/", id);
+            tomboldelete.setAttribute("href", url4);
 
-                // console.log(id);
-                // var url = "{{url('pegawai/destroy/"+id+"')}}";
-                
-                // url = JSON.parse(rul.replace(/"/g,'"'));
-                tomboldelete.setAttribute("href", url4); //akan meload kontroller delete
+            var pesan = "Apakah Anda yakin ingin menghapus data <b>";
+            var pesan2 = "</b> dengan ID <b>" + id + "</b>?"; 
+            document.getElementById("xid").innerHTML = pesan.concat(nama, pesan2);
 
-                var pesan = "Data dengan ID <b>"
-                var pesan2 = " </b>akan dihapus"
-                var res = id;
-                document.getElementById("xid").innerHTML = pesan.concat(res,pesan2);
-
-                var myModal = new bootstrap.Modal(document.getElementById('deleteModal'), {  keyboard: false });
-                
-                myModal.show();
-            
-            }
+            var myModal = new bootstrap.Modal(document.getElementById('deleteModal'), {keyboard: false});
+            myModal.show();
+        }
         </script>
 
         <!-- Logout Delete Confirmation-->

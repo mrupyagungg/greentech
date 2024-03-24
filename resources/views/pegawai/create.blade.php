@@ -32,16 +32,21 @@
                     <input type="hidden" id="kode_pegawai" name="kode_pegawai" value="{{$kode_pegawai}}">
 
                     <div class="mb-3"><label for="namapegawailabel">Nama pegawai</label>
-                    <input class="form-control form-control-solid" id="nama_pegawai" name="nama_pegawai" type="text" placeholder="Contoh: Toko Mukena Sejuk Menenangkan" value="{{old('nama_pegawai')}}">
+                    <input class="form-control form-control-solid" id="nama_pegawai" name="nama_pegawai" type="text" placeholder="Contoh: Mrupy Agung" value="{{old('nama_pegawai')}}">
                     </div>
 
                     <div class="mb-0"><label for="alamatpegawailabel">Alamat pegawai</label>
                         <textarea class="form-control form-control-solid" id="alamat_pegawai" name="alamat_pegawai" rows="3" placeholder="Cth: Jl Pelajar Pejuan 45">{{old('alamat_pegawai')}}</textarea>
                     </div>
                     
-                    <div class="mb-3"><label for="jeniskelaminlabel">Jenis Kelamin</label>
-                    <input class="form-control form-control-solid" id="jenis_kelamin" name="jenis_kelamin" type="text"  value="{{old('jenis_kelamin')}}">
+                    <div class="mb-3">
+                        <label for="jeniskelaminlabel">Jenis Kelamin</label>
+                        <select class="form-control form-control-solid" id="jenis_kelamin" name="jenis_kelamin">
+                            <option value="Laki-laki" {{ old('jenis_kelamin') == 'Laki-laki' ? 'selected' : '' }}>Laki-laki</option>
+                            <option value="Perempuan" {{ old('jenis_kelamin') == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
+                        </select>
                     </div>
+                    
                     
                     <div class="mb-3"><label for="nohplabel">Nomor HP</label>
                     <input class="form-control form-control-solid" id="no_hp" name="no_hp" type="text" placeholder="Contoh: 081234567890" value="{{old('no_hp')}}">

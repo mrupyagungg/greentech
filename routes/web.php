@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PegawaiController;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,5 +55,13 @@ Route::get('/pegawai/{pegawai}', [PegawaiController::class, 'show'])->name('pega
 Route::get('/pegawai/{pegawai}/edit', [PegawaiController::class, 'edit'])->name('pegawai.edit');
 Route::put('/pegawai/{pegawai}', [PegawaiController::class, 'update'])->name('pegawai.update');
 Route::delete('/pegawai/{pegawai}', [PegawaiController::class, 'destroy'])->name('pegawai.destroy');
+Route::delete('/pegawai/destroy/{id}', 'PegawaiController@destroy')->name('pegawai.destroy');
+Route::delete('/pegawai/{pegawaiModel}', 'PegawaiController@destroy')->name('pegawai.destroy');
+Route::get('pegawai/destroy/{id}', [App\Http\Controllers\PegawaiController::class,'destroy'])->middleware(['auth']);
+// Route untuk menghapus data pegawai
+Route::delete('/pegawai/{id}', [PegawaiController::class, 'destroy'])->name('pegawai.destroy');
+
+
+
 
 require __DIR__.'/auth.php';

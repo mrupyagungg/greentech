@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\PegawaiModel;
 use Illuminate\Http\Request;
 
@@ -117,11 +116,17 @@ class PegawaiController extends Controller
      * @param  \App\Models\PegawaiModel  $pegawaiModel
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PegawaiModel $pegawaiModel)
-    {
-         $pegawaiModel->delete();
 
-    return redirect()->route('pegawai.index')->with('success', 'Pegawai berhasil dihapus.');
+     public function destroy($id)
+{
+    // Cari entitas Pegawai berdasarkan ID
+    $pegawai = PegawaiModel::findOrFail($id);
 
-    }
+    // Hapus entitas dari database
+    $pegawai->delete();
+
+    // Redirect ke halaman indeks dengan pesan sukses
+    return redirect()->route('pegawai.index')->with('success', 'Data berhasil dihapus.');
+}
+ 
 }
