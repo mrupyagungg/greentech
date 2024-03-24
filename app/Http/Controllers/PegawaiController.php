@@ -81,9 +81,13 @@ class PegawaiController extends Controller
      * @param  \App\Models\PegawaiModel  $pegawaiModel
      * @return \Illuminate\Http\Response
      */
-    public function edit(PegawaiModel $pegawaiModel)
+    public function edit($id)
     {
-        return view('pegawai.edit', compact('pegawaiModel'));
+        // Cari pegawai berdasarkan ID
+        $pegawai = PegawaiModel::findOrFail($id);
+        
+        // Kirimkan data pegawai ke view
+        return view('pegawai.edit', compact('pegawai'));
     }
 
     /**
@@ -95,7 +99,7 @@ class PegawaiController extends Controller
      */
     public function update(Request $request, PegawaiModel $pegawaiModel)
     {
-        //digunakan untuk validasi kemudian kalau ok tidak ada masalah baru diupdate ke db
+        // Validasi data yang dikirimkan dari formulir
         $validated = $request->validate([
             'kode_pegawai' => 'required',
             'nama_pegawai' => 'required|string|max:255',
@@ -104,11 +108,19 @@ class PegawaiController extends Controller
             'no_hp' => 'required|string',
         ]);
     
-        $pegawaimodel->update($validated);
+        // Mendapatkan ID pegawai dari input formulir
+        $id = $request->input('id');
     
-        return redirect()->route('pegawai.index')->with('success','Data Berhasil di Ubah');
+        // Menggunakan metode findOrFail untuk menemukan data pegawai berdasarkan ID
+        $pegawai = PegawaiModel::findOrFail($id);
     
+        // Update data pegawai dengan data yang divalidasi
+        $pegawai->update($validated);
+    
+        // Redirect ke halaman pegawai setelah berhasil diupdate
+        return redirect()->route('pegawai.index')->with('success', 'Data Berhasil di Ubah');
     }
+    
 
     /**
      * Remove the specified resource from storage.

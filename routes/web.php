@@ -52,7 +52,11 @@ Route::get('/pegawai', [PegawaiController::class, 'index'])->name('pegawai.index
 Route::get('/pegawai/create', [PegawaiController::class, 'create'])->name('pegawai.create');
 Route::post('/pegawai', [PegawaiController::class, 'store'])->name('pegawai.store');
 Route::get('/pegawai/{pegawai}', [PegawaiController::class, 'show'])->name('pegawai.show');
+
+// edit pegawai
+Route::get('/pegawai/{id}/edit', 'PegawaiController@edit')->name('pegawai.edit');
 Route::get('/pegawai/{pegawai}/edit', [PegawaiController::class, 'edit'])->name('pegawai.edit');
+
 Route::put('/pegawai/{pegawai}', [PegawaiController::class, 'update'])->name('pegawai.update');
 Route::delete('/pegawai/{pegawai}', [PegawaiController::class, 'destroy'])->name('pegawai.destroy');
 Route::delete('/pegawai/destroy/{id}', 'PegawaiController@destroy')->name('pegawai.destroy');
