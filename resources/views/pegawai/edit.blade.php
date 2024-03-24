@@ -52,8 +52,7 @@
                             <option value="Perempuan" {{ old('jenis_kelamin', $pegawai->jenis_kelamin) == 'Perempuan' ? 'selected' : '' }}>Perempuan</option>
                         </select>
                     </div>
-                    
-                    
+                
                     <div class="mb-3">
                         <label for="nohplabel">Nomor HP</label>
                         <input class="form-control form-control-solid" id="no_hp" name="no_hp" type="text" placeholder="Contoh: 081234567890" value="{{ old('no_hp', $pegawai->no_hp) }}">
