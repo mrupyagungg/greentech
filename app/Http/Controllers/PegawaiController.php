@@ -83,12 +83,12 @@ class PegawaiController extends Controller
      */
     public function edit($id)
     {
-        // Cari pegawai berdasarkan ID
         $pegawai = PegawaiModel::findOrFail($id);
-        
-        // Kirimkan data pegawai ke view
-        return view('pegawai.edit', compact('pegawai'));
-    }
+        return view('pegawai.edit', [
+            'id' => $id,
+            'pegawai' => $pegawai
+        ]);
+    }   
 
     /**
      * Update the specified resource in storage.
@@ -97,29 +97,27 @@ class PegawaiController extends Controller
      * @param  \App\Models\PegawaiModel  $pegawaiModel
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PegawaiModel $pegawaiModel)
-    {
-        // Validasi data yang dikirimkan dari formulir
-        $validated = $request->validate([
-            'kode_pegawai' => 'required',
-            'nama_pegawai' => 'required|string|max:255',
-            'alamat_pegawai' => 'required|string',
-            'jenis_kelamin' => 'required|string',
-            'no_hp' => 'required|string',
-        ]);
-    
-        // Mendapatkan ID pegawai dari input formulir
-        $id = $request->input('id');
-    
-        // Menggunakan metode findOrFail untuk menemukan data pegawai berdasarkan ID
-        $pegawai = PegawaiModel::findOrFail($id);
-    
-        // Update data pegawai dengan data yang divalidasi
-        $pegawai->update($validated);
-    
-        // Redirect ke halaman pegawai setelah berhasil diupdate
-        return redirect()->route('pegawai.index')->with('success', 'Data Berhasil di Ubah');
-    }
+            public function update(Request $request, $id)
+        {
+            // Validasi data yang dikirimkan dari formulir
+            $validated = $request->validate([
+                'kode_pegawai' => 'required',
+                'nama_pegawai' => 'required|string|max:255',
+                'alamat_pegawai' => 'required|string',
+                'jenis_kelamin' => 'required|string',
+                'no_hp' => 'required|string',
+            ]);
+
+            // Mengambil data pegawai berdasarkan $id
+            $pegawai = PegawaiModel::findOrFail($id);
+
+            // Mengupdate data pegawai dengan data yang telah divalidasi
+            $pegawai->update($validated);
+
+            // Redirect ke halaman pegawai dengan pesan sukses
+            return redirect()->route('pegawai.index')->with('success', 'Data Berhasil di Ubah');
+        }
+
     
 
     /**

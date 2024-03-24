@@ -38,6 +38,10 @@ Route::get('/login', function () {
     return view('login');
 });
 
+Route::get('/team', function () {
+    return view('team');
+});
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::get('/dashboard', function () {
