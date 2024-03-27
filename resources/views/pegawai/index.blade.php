@@ -9,7 +9,7 @@
           <div class="card">
             <div class="card-body">
               <div class="row">
-                  <h3 class="card-title fw-semibold mb-4 text-center">Daftar Data Pegawai</h3>
+                  <h2 class="card-title fw-semibold mb-4 text-center">Daftar Data Pegawai</h2>
                 <div class="col-md-12">
                   <!-- Alert jika data berhasil ditambahkan -->
 
@@ -32,7 +32,7 @@
                   <div class="card">
                         <!-- Card Header - Dropdown -->
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">Master Data pegawai</h6>
+                            <h4 class="m-0 font-weight-bold text-primary">Master Data pegawai</h4>
                             
                             <!-- Tombol Tambah Data -->
                             <a href="{{ url('/pegawai/create') }}" class="btn btn-primary btn-icon-split btn-sm">

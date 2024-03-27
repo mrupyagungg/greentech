@@ -1,6 +1,6 @@
 <style>
     body{
-        background-image: url('img/bg1.jpg');
+        background-image: url('img/bg2.jpg');
             background-size: cover;
             padding: 3rem;
     }
@@ -54,7 +54,7 @@
                 </div>
     
                 <div class="flex items-center justify-end mt-4">
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('/login') }}">
                         {{ __('Already registered?') }}
                     </a>
     

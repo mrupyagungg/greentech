@@ -27,12 +27,12 @@
                     @csrf
                     <fieldset disabled>
                         <div class="mb-3"><label for="kodepegawailabel">Kode pegawai</label>
-                        <input class="form-control form-control-solid" id="kode_pegawai_tampil" name="kode_pegawai_tampil" type="text" placeholder="Contoh: PR-001" value="{{$kode_pegawai}}" readonly></div>
+                        <input class="form-control form-control-solid" id="kode_pegawai_tampil" name="kode_pegawai_tampil" type="text" placeholder="PR-001" value="{{$kode_pegawai}}" readonly></div>
                     </fieldset>
                     <input type="hidden" id="kode_pegawai" name="kode_pegawai" value="{{$kode_pegawai}}">
 
                     <div class="mb-3"><label for="namapegawailabel">Nama pegawai</label>
-                    <input class="form-control form-control-solid" id="nama_pegawai" name="nama_pegawai" type="text" placeholder="Contoh: Mrupy Agung" value="{{old('nama_pegawai')}}">
+                    <input class="form-control form-control-solid" id="nama_pegawai" name="nama_pegawai" type="text" placeholder="Mrupy Agung" value="{{old('nama_pegawai')}}">
                     </div>
 
                     <div class="mb-0"><label for="alamatpegawailabel">Alamat pegawai</label>
@@ -49,7 +49,7 @@
                     
                     
                     <div class="mb-3"><label for="nohplabel">Nomor HP</label>
-                    <input class="form-control form-control-solid" id="no_hp" name="no_hp" type="text" placeholder="Contoh: 081234567890" value="{{old('no_hp')}}">
+                    <input class="form-control form-control-solid" id="no_hp" name="no_hp" type="number" placeholder="081234567890" value="{{old('no_hp')}}">
                     </div>
                     
                     <br>

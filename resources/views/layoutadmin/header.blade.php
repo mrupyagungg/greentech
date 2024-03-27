@@ -12,6 +12,8 @@
   <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-w4K+oryH/E5VYUk/p2FjKb0Akr71G4tij2UasENFgJBDL+/Il9Y4+I1LYNT73PeD" crossorigin="anonymous">
+
 
 
   <style>
@@ -73,11 +75,11 @@
       </ul>
       <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
         <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-          <a href="dashboard" class="btn btn-primary">{{Auth::user()->name}}</a>
+          <a href="" class="btn btn-primary">{{Auth::user()->name}}</a>
           <li class="nav-item dropdown">
             <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
               aria-expanded="false">
-              <img src="{{asset('images/profile/FOTO400X400.png')}}" alt="" width="35" height="35" class="img rounded-circle">
+              <img src="{{asset('images/profile/user-1.jpg')}}" alt="" width="35" height="35" class="img rounded-circle">
             </a>
             <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
               <div class="message-body">
@@ -86,8 +88,7 @@
                   <p class="mb-0 fs-3">My Profile</p>
                 </a>
                 <a href="team" class="d-flex align-items-center gap-2 dropdown-item">
-                  <i class="ti ti-
-                   fs-6"></i>
+                  <i class="bi bi-people-fill"></i>
                   <p class="mb-0 fs-3">My Account</p>
                 </a>
                 <a class="btn btn-outline-primary mx-3 mt-2 d-block" data-bs-toggle="modal" href="#logoutModal">Logout</a>
