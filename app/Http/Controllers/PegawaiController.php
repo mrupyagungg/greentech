@@ -59,7 +59,7 @@ class PegawaiController extends Controller
         ]);
         
         // Arahkan pengguna ke halaman home
-        return redirect('/pegawai')->with('success', 'Data pegawai berhasil disimpan!');
+        return redirect('/pegawai')->with('success', 'Data pegawai has been saved!');
     
     }
 
@@ -115,7 +115,7 @@ class PegawaiController extends Controller
             $pegawai->update($validated);
 
             // Redirect ke halaman pegawai dengan pesan sukses
-            return redirect()->route('pegawai.index')->with('success', 'Data Berhasil di Ubah');
+            return redirect()->route('pegawai.index')->with('success', 'Data changed is successfully!');
         }
 
     
@@ -136,7 +136,7 @@ class PegawaiController extends Controller
     $pegawai->delete();
 
     // Redirect ke halaman indeks dengan pesan sukses
-    return redirect()->route('pegawai.index')->with('success', 'Data berhasil dihapus.');
+    return redirect()->route('pegawai.index')->with('success', 'Data deleted is successfully !');
 }
  
 }

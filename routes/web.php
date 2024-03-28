@@ -23,8 +23,8 @@ Route::get('/', function () {
 });
 
 
-// Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
 
 Route::get('/regist', function () {
     return view('regist');
@@ -34,7 +34,7 @@ Route::get('/regist', function () {
 Route::resource('/pegawai', pegawaiController::class)->middleware(['auth']);
 Route::get('/pegawai/destroy/{id}', [App\Http\Controllers\pegawaiController::class,'destroy'])->middleware(['auth']);
 
-Route::get('/login', function () {
+Route::get('login', function () {
     return view('login');
 });
 

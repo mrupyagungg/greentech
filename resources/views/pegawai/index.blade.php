@@ -1,6 +1,26 @@
 @extends('layoutadmin')
 
 @section('konten')
+<script>
+    window.onload = function() {
+        updateProgressBar();
+    };
+</script>
+<script>
+    // Fungsi untuk mengubah lebar progress bar dari 0% hingga 100%
+    function updateProgressBar() {
+        var progressBar = document.querySelector('.progress-bar');
+        var width = 0;
+        var interval = setInterval(function() {
+            if (width >= 100) {
+                clearInterval(interval);
+            } else {
+                width++;
+                progressBar.style.width = width + '%';
+            }
+        }, 20);
+    }
+</script>
 <!--  Main wrapper -->
 <div class="body-wrapper">
 
@@ -14,13 +34,13 @@
                   <!-- Alert jika data berhasil ditambahkan -->
 
                   @if(session('success'))
-                     <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
                         <div class="progress">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%; color:green;"></div>
+                            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%; color:rgba(255, 255, 255, 0.166);"></div>
                         </div>
                         <strong>{{ session('success') }}</strong>
                         <button type="button"  data-bs-dismiss="alert" ></button>
-                         </div>
+                    </div>
                     @endif
                 <script>
                     // Munculkan alert
@@ -54,7 +74,7 @@
                                             <th>Kode Pegawai</th>
                                             <th>Nama</th>
                                             <th>Alamat</th>
-                                            <th>jenis Kelamin</th>
+                                            <th>Jenis Kelamin</th>
                                             <th>NO Hp</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -105,7 +125,7 @@
             function deleteConfirm(e) {
             var tomboldelete = document.getElementById('btn-delete');  
             id = e.getAttribute('data-id');
-            nama = e.getAttribute('data-nama'); // Menambahkan atribut data-nama untuk mendapatkan nama pegawai
+            nama = e.getAttribute('data-nama'); 
 
             var url3 = "{{url('pegawai/destroy/')}}";
             var url4 = url3.concat("/", id);

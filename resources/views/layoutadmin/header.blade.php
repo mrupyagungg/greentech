@@ -49,6 +49,8 @@
   <!-- Bootstrap core JavaScript-->
   <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
   <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+
   
   <!-- Untuk sweet alert -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
