@@ -52,11 +52,11 @@
                      </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ url('coa') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ url('pelanggan') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-wallet"></i>
                         </span>
-                        <span class="hide-menu">Metode Pembayaran</span>
+                        <span class="hide-menu">Pelanggan</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
