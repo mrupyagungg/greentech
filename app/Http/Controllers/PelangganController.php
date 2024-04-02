@@ -14,7 +14,7 @@ class PelangganController extends Controller
      */
     public function index()
     {
-        $pelanggan = PelangganModel::all();
+        $pelanggan = Pelanggan::all();
         return view('pelanggan.index', compact('pelanggan'));
     }
     /**
@@ -38,7 +38,7 @@ class PelangganController extends Controller
      */
     public function store(Request $request)
     {
-        Pelanggan::create($request->all());
+        PelangganModel::create($request->all());
         return redirect()->route('pelanggan.index')->with('success', 'Pelanggan berhasil ditambahkan.');
     }
     /**
@@ -75,27 +75,21 @@ class PelangganController extends Controller
      * @param  \App\Models\PelangganModel  $pelangganModel
      * @return \Illuminate\Http\Response
      */
-            public function update(Request $request, $id)
-        {
-            // Validasi data yang dikirimkan dari formulir
-            $validated = $request->validate([
-                'kode_pelanggan' => 'required',
-                'nama_pelanggan' => 'required|string|max:255',
-                'alamat_pelanggan' => 'required|string',
-                'jenis_kelamin' => 'required|string',
-                'no_telp' => 'required|string',
-            ]);
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'kode_pelanggan' => 'required',
+            'nama_pelanggan' => 'required|string|max:255',
+            'alamat_pelanggan' => 'required|string',
+            'jenis_kelamin' => 'required|string',
+            'no_telp' => 'required|string',
+        ]);
 
-            // Mengambil data pelanggan berdasarkan $id
-            $pelanggan = PelangganModel::findOrFail($id);
+        $pelanggan = PelangganModel::findOrFail($id);
+        $pelanggan->update($validated);
 
-            // Mengupdate data pelanggan dengan data yang telah divalidasi
-            $pelanggan->update($validated);
-
-            // Redirect ke halaman pelanggan dengan pesan sukses
-            return redirect()->route('pelanggan.index')->with('success', 'Data Berhasil di Ubah');
-        }
-
+        return redirect()->route('pelanggan.index')->with('success', 'Data Berhasil di Ubah');
+    }
     
 
     /**
@@ -106,15 +100,11 @@ class PelangganController extends Controller
      */
 
      public function destroy($id)
-{
-    // Cari entitas pelanggan berdasarkan ID
-    $pelanggan = PelangganModel::findOrFail($id);
+    {
+        $pelanggan = PelangganModel::findOrFail($id);
+        $pelanggan->delete();
 
-    // Hapus entitas dari database
-    $pelanggan->delete();
-
-    // Redirect ke halaman indeks dengan pesan sukses
-    return redirect()->route('pelanggan.index')->with('success', 'Data berhasil dihapus.');
-}
+        return redirect()->route('pelanggan.index')->with('success', 'Data berhasil dihapus.');
+    }
  
 }
