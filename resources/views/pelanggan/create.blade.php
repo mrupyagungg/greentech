@@ -49,7 +49,7 @@
                     
                     
                     <div class="mb-3"><label for="nohplabel">Nomor HP</label>
-                    <input class="form-control form-control-solid" id="no_hp" name="no_hp" type="number" placeholder="081234567890" value="{{old('no_hp')}}">
+                    <input class="form-control form-control-solid" id="no_telp" name="no_telp" type="number" placeholder="081234567890" value="{{old('no_telp')}}">
                     </div>
                     
                     <br>

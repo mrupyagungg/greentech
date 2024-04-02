@@ -20,7 +20,7 @@ class PelangganModel extends Model
     public static function getKodepelanggan()
     {
         // Query kode pelanggan
-        $sql = "SELECT IFNULL(MAX(kode_pelanggan), 'PLG-000') as kode_pelanggan
+        $sql = "SELECT IFNULL(MAX(kode_pelanggan), 'PL-000') as kode_pelanggan
                 FROM pelanggan";
         $kodepelanggan = DB::select($sql);
 
@@ -33,8 +33,8 @@ class PelangganModel extends Model
         $noAwal = substr($kd, -3);
         $noAkhir = $noAwal + 1; // Menambahkan 1, hasilnya adalah integer contoh 1
 
-        // Menyambung dengan string PLG-001
-        $noAkhir = 'PLG-' . str_pad($noAkhir, 3, "0", STR_PAD_LEFT);
+        // Menyambung dengan string PL-001
+        $noAkhir = 'PL-' . str_pad($noAkhir, 3, "0", STR_PAD_LEFT);
 
         return $noAkhir;
 }

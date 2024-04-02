@@ -51,7 +51,7 @@
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>Kode pelanggan</th>
-                                            <th>Nama</th>
+                                            <th>Nama Pelanggan</th>
                                             <th>Alamat</th>
                                             <th>jenis Kelamin</th>
                                             <th>NO Telp</th>
@@ -61,7 +61,7 @@
                                     <tfoot class="thead-dark">
                                         <tr>
                                             <th>Kode pelanggan</th>
-                                            <th>Nama</th>
+                                            <th>Nama Pelanggan</th>
                                             <th>Alamat</th>
                                             <th>Jenis Kelamin</th>
                                             <th>NO telp</th>
@@ -78,10 +78,16 @@
                                             <td>{{ $p->jenis_kelamin }}</td>
                                             <td>{{ $p->no_telp }}</td>
                                             <td>
-                                                <a href="{{ route('pelanggan.edit', $p->id) }}" class="btn btn-info btn-circle btn">
-                                                    <i class="fas fa-edit"></i>
+                                                <a href="#" onclick="editData(this);" 
+                                                data-id="{{ $p->id }}" 
+                                                data-kode-pelanggan="{{ $p->kode_pelanggan }}" 
+                                                data-nama-pelanggan="{{ $p->nama_pelanggan }}"
+                                                data-alamat-pelanggan="{{ $p->alamat_pelanggan }}"
+                                                data-jenis-kelamin="{{ $p->jenis_kelamin }}"
+                                                data-no-telp="{{ $p->no_telp }}" 
+                                                class="btn btn-info btn-circle btn">
+                                                <i class="fas fa-edit"></i>
                                                 </a>
-                                                
                                                 <a href="#" onclick="deleteConfirm(this); return false;" data-id="{{ $p->id }}" data-nama="{{ $p->nama_pelanggan }}" class="btn btn-danger btn-circle btn">
                                                     <i class="fas fa-trash"></i>
                                                 </a>
@@ -100,6 +106,75 @@
           </div>
         </div>
 
+        <!-- Modal Edit Data -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Data Pelanggan</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Form untuk mengedit data pelanggan -->
+                <form id="editForm" action="" method="POST">
+                    @csrf
+                    @method('PUT') <!-- Method untuk menunjukkan bahwa ini adalah request PUT -->
+                    <div class="form-group">
+                        <label for="kode_pelanggan">Kode Pelanggan</label>
+                        <input type="text" class="form-control" id="edit_kode_pelanggan" name="kode_pelanggan" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="nama_pelanggan">Nama</label>
+                        <input type="text" class="form-control" id="edit_nama_pelanggan" name="nama_pelanggan">
+                    </div>
+                    <div class="form-group">
+                        <label for="alamat_pelanggan">Alamat</label>
+                        <input type="text" class="form-control" id="edit_alamat_pelanggan" name="alamat_pelanggan">
+                    </div>
+                    <div class="form-group">
+                        <label for="jenis_kelamin">Jenis Kelamin</label>
+                        <select class="form-control" id="edit_jenis_kelamin" name="jenis_kelamin">
+                            <option value="Laki-laki">Laki-laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="no_telp">No Telp</label>
+                        <input type="text" class="form-control" id="edit_no_telp" name="no_telp">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function editData(e) {
+        var id = e.getAttribute('data-id');
+        var kode_pelanggan = e.getAttribute('data-kode-pelanggan');
+        var nama_pelanggan = e.getAttribute('data-nama-pelanggan');
+        var alamat_pelanggan = e.getAttribute('data-alamat-pelanggan');
+        var jenis_kelamin = e.getAttribute('data-jenis-kelamin');
+        var no_telp = e.getAttribute('data-no-telp');
+
+        // Mengatur nilai input dalam form edit dengan nilai yang sesuai
+        document.getElementById('edit_kode_pelanggan').value = kode_pelanggan;
+        document.getElementById('edit_nama_pelanggan').value = nama_pelanggan;
+        document.getElementById('edit_alamat_pelanggan').value = alamat_pelanggan;
+        document.getElementById('edit_jenis_kelamin').value = jenis_kelamin;
+        document.getElementById('edit_no_telp').value = no_telp;
+
+        var url = "{{ url('pelanggan') }}" + '/' + id;
+        document.getElementById('editForm').action = url;
+
+        $('#editModal').modal('show'); // Menampilkan modal edit
+    }
+</script>
+
+{{-- delete sript --}}
         <script>
             function deleteConfirm(e) {
             var tomboldelete = document.getElementById('btn-delete');  
@@ -118,6 +193,8 @@
             myModal.show();
         }
         </script>
+      
+     
 
         <!-- Logout Delete Confirmation-->
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
