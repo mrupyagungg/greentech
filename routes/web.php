@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PelangganController;
+use App\Http\Controllers\BarangController;
 
 
 /*
@@ -90,11 +91,22 @@ Route::delete('/pelanggan/{pelangganModel}', 'PelangganController@destroy')->nam
 Route::get('pelanggan/destroy/{id}', [App\Http\Controllers\PelangganController::class,'destroy'])->middleware(['auth']);
 // Route untuk menghapus data pelanggan
 Route::delete('/pelanggan/{id}', [PelangganController::class, 'destroy'])->name('pelanggan.destroy');
-
-
-
 Route::get('/pelanggan', [PelangganController::class, 'index'])->name('pelanggan.index');
 Route::get('/pelanggan/create', [PelangganController::class, 'create'])->name('pelanggan.create');
 Route::post('/pelanggan', [PelangganController::class, 'store'])->name('pelanggan.store');
+
+// Route untuk master data barang
+Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
+Route::get('/barang/create', [BarangController::class, 'create'])->name('barang.create');
+Route::post('/barang', [BarangController::class, 'store'])->name('barang.store');
+Route::get('/barang/{barang}', [BarangController::class, 'show'])->name('barang.show');
+Route::get('/barang/{barang}/edit', [BarangController::class, 'edit'])->name('barang.edit');
+Route::put('/barang/{barang}', [BarangController::class, 'update'])->name('barang.update');
+Route::delete('/barang/destroy/{barang}', [BarangController::class, 'destroy'])->name('barang.destroy');
+Route::post('/barang/create', [BarangController::class, 'store']);
+Route::delete('/barang/{id}', 'BarangController@destroy')->name('barang.destroy');
+
+// Route::get('/barang/{id}/edit', 'BarangController@edit')->name('barang.edit');
+
 
 require __DIR__.'/auth.php';
