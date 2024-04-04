@@ -13,7 +13,7 @@ class PegawaiModel extends Model
     protected $table = 'pegawai';
     
     // List kolom yang bisa diisi
-    protected $fillable = ['kode_pegawai', 'nama_pegawai', 'alamat_pegawai', 'jenis_kelamin', 'no_telp'];
+    protected $fillable = ['kode_pegawai', 'nama_pegawai', 'alamat_pegawai', 'jenis_kelamin', 'no_hp'];
 
 
     // Method untuk mendapatkan kode pegawai secara otomatis

@@ -93,7 +93,7 @@
                                     @foreach ($pegawai as $p)
                                         <tr>
                                             {{-- <td>{{ $p->id }}</td> --}}
-                                            <td>{{ $p->kode_pegawai }}</td>
+                                            <td style="background-color: #f1f1f1">{{ $p->kode_pegawai }}</td>
                                             <td>{{ $p->nama_pegawai }}</td>
                                             <td>{{ $p->alamat_pegawai }}</td>
                                             <td>{{ $p->jenis_kelamin }}</td>

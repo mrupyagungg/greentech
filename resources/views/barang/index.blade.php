@@ -1,21 +1,37 @@
 @extends('layoutadmin')
 
 @section('konten')
-<!--  Main wrapper -->
+<style>
+    th{
+        text-align: center;
+        color: #000;
+        text-transform: uppercase;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    td{
+        /* color: #000; */
+        text-transform: capitalize;
+    }
+    .card-body{
+        background-color: rgb(255, 255, 255);
+        border-radius: 1.5rem;
+        padding: 2rem;
+        size: 6rem
+    }
+</style>
 <div class="body-wrapper">
     <div class="container-fluid">
         <div class="card">
             <div class="card-body">
-                <div class="row">
+                <div class="row mb-3"> <!-- Mengubah mb-4 menjadi mb-3 -->
                     <div class="col-md-12">
-                        <h5 class="card-title fw-semibold mb-4">Data Barang</h5>
+                        <h5 class="card-title fw-semibold">Data Barang</h5>
                         <div class="card">
                             <!-- Card Header - Dropdown -->
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                 <h6 class="m-0 font-weight-bold text-primary">Master Data Barang</h6>
                                 <!-- Tombol Tambah Data -->
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-primary"></button>
                                     <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Tambah Data
                                         <span class="sr-only">Toggle Dropdown</span>
                                     </button>
@@ -32,55 +48,63 @@
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead class="thead-dark">
-                                                <tr>
-                                                <th>Kode Barang</th>
-                                                <th>Nama Barang</th>
-                                                <th>Kategori </th>
-                                                <th>Deskripsi</th>
-                                                <th>Gambar</th>
-                                                <th>Aksi</th>
-                                            </tr>
+                                            <th>Kode Barang</th>
+                                            <th>Nama Barang</th>
+                                            <th>Kategori</th>
+                                            <th>Hrg Beli</th>
+                                            <th>Hrg Jual</th>
+                                            <th>Stok</th>
+                                            <th>Satuan</th>
+                                            <th>Supplier</th>
+                                            <th>Deskripsi</th>
+                                            <th>Tanggal Pembelian</th>
+                                            <th>Aksi</th>
                                         </thead>
                                         <tfoot class="thead-dark">
-                                            <tr>
-                                                <th>Kode Barang</th>
-                                                <th>Nama Barang</th>
-                                                <th>Jenis Barang</th>
-                                                <th>Deskripsi</th>
-                                                <th>Gambar</th>
-                                                <th>Aksi</th>
-                                            </tr>
+                                            <th>Kode Barang</th>
+                                            <th>Nama Barang</th>
+                                            <th>Kategori</th>
+                                            <th>Hrg Beli</th>
+                                            <th>Hrg Jual</th>
+                                            <th>Stok</th>
+                                            <th>Satuan</th>
+                                            <th>Supplier</th>
+                                            <th>Deskripsi</th>
+                                            <th>Tanggal Pembelian</th>
+                                            <th>Aksi</th>
                                         </tfoot>
                                         <tbody>
-                                            @foreach ($barang as $b)
+                                            @foreach ($barangs as $b)
                                             <tr>
-                                                <td>{{ $b->kode_barang }}</td>
+                                                <td style="background-color: #f1f1f1">{{ $b->kode_barang }}</td>
                                                 <td>{{ $b->nama_barang }}</td>
-                                                <td>{{ $b->kategori_barang }}</td>
-                                                <td>{{ $b->deskripsi_barang }}</td>
-                                                <td>
-                                                    <img src="{{ asset('storage/images/' . $b->image_barang) }}" alt="Uploaded Image">
-                                                </td>
+                                                <td>{{ $b->kategori }}</td>
+                                                <td>Rp. {{ $b->harga_beli }}</td>
+                                                <td>Rp. {{ $b->harga_jual }}</td>
+                                                <td>{{ $b->stok_tersedia }}</td>
+                                                <td>{{ $b->satuan }}</td>
+                                                <td style="background-color: #f1f1f1">{{ $b->supplier }}</td>
+                                                <td>{{ $b->deskripsi }}</td>
+                                                <td>{{ $b->tanggal_pembelian_terakhir }}</td>
                                                 
                                                 <td>
                                                     <a href="#" onclick="editData(this);" 
-                                                    data-id="{{ $b->id_barang }}" 
+                                                    data-id="{{ $b->id }}"
                                                     data-kode-barang="{{ $b->kode_barang }}" 
                                                     data-nama-barang="{{ $b->nama_barang }}"
-                                                    data-kategori-barang="{{ $b->kategori_barang }}"
-                                                    data-deskripsi-barang="{{ $b->deskripsi_barang }}"
+                                                    data-kategori-barang="{{ $b->kategori }}"
+                                                    data-deskripsi-barang="{{ $b->deskripsi }}"
                                                     class="btn btn-info btn-circle btn">
                                                     <i class="fas fa-edit"></i>
                                                     </a>
                                                  
-                                                    <a href="#" onclick="deleteConfirm('{{ $b->id_barang }}')" class="btn btn-danger btn-circle btn">
-                                                        <i class="fas fa-trash"></i>
+                                                    <a href="#" onclick="deleteConfirm('{{ $b->id }}')" class="btn btn-danger btn-circle btn">
+                                                        <i class="fas fa-trash"></i> <!-- Penyesuaian disini -->
                                                     </a>
                                                 </td>
                                             </tr>
                                             @endforeach
                                         </tbody>
-                                        
                                     </table>
                                 </div>
                                 <!-- Akhir Dari Tabel -->
@@ -121,8 +145,8 @@
                         <label for="edit_kategori_barang">Kategori Barang</label>
                         <select class="form-control" id="edit_kategori_barang" name="kategori_barang">
                             <option value="Elektronik">Elektronik</option>
-                            <option value="Pakaian">Pakaian</option>
-                            <option value="Alat Tulis">Alat Tulis</option>
+                            <option value="Farm">Farm</option>
+                            {{-- <option value="Alat Tulis">Alat Tulis</option> --}}
                             <!-- Anda dapat menambahkan opsi lainnya dari data yang diambil dari database -->
                         </select>
                     </div> 
@@ -136,7 +160,6 @@
         </div>
     </div>
 </div>
-
 
 {{-- edit script --}}
 <script>
@@ -177,10 +200,11 @@
             <div class="modal-body" id="xid"></div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+                <!-- Form untuk menghapus data barang -->
                 <form id="form-delete" method="POST">
-                @csrf
-                @method('DELETE')
-                <button class="btn btn-danger btn-block btn" type="submit">Hapus</button>
+                    @csrf
+                    @method('DELETE')
+                    <button class="btn btn-danger" type="submit">Hapus</button>
                 </form>
             </div>
         </div>
@@ -203,5 +227,32 @@
 }
 
 </script>
+<style>
+    .table-responsive {
+    margin: 20px; /* Atur margin sesuai kebutuhan Anda */
+    overflow-x: auto; /* Aktifkan overflow-x untuk mengaktifkan gulir horizontal jika diperlukan */
+    }
+    #dataTable {
+        width: 100%; /* Atur lebar tabel menjadi 100% */
+    }
 
+    #dataTable th,
+    #dataTable td {
+        white-space: nowrap; /* Jaga agar teks dalam sel tidak mematahkan baris */
+    }
+
+    /* Atur lebar masing-masing kolom */
+    #dataTable th:nth-child(1),
+    #dataTable td:nth-child(1) {
+        width: 10%; /* Misalnya, atur lebar kolom pertama menjadi 10% */
+    }
+
+    #dataTable th:nth-child(2),
+    #dataTable td:nth-child(2) {
+        width: 20%; /* Atur lebar kolom kedua menjadi 20% */
+    }
+
+/* Teruskan untuk kolom lainnya sesuai kebutuhan */
+
+</style>
 @endsection

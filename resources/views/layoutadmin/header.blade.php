@@ -42,6 +42,21 @@
       width: 100%;
       z-index: 2;
     }
+    h6{
+      font-size: 25px;
+    }
+    td{
+        /* color: #000; */
+        text-transform: capitalize;
+    }
+    .card-title{
+        color: rgb(0, 0, 0);
+        text-align: center;
+        text-transform: uppercase; 
+        font-size: 30px;
+        font-weight: bold;
+        font-family: Arial, Helvetica, sans-serif;
+    }
 
   </style>
 

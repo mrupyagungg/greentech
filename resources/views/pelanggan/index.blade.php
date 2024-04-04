@@ -72,7 +72,7 @@
                                     @foreach ($pelanggan as $p)
                                         <tr>
                                             {{-- <td>{{ $p->id }}</td> --}}
-                                            <td>{{ $p->kode_pelanggan }}</td>
+                                            <td style="background-color: #f1f1f1">{{ $p->kode_pelanggan }}</td>
                                             <td>{{ $p->nama_pelanggan }}</td>
                                             <td>{{ $p->alamat_pelanggan }}</td>
                                             <td>{{ $p->jenis_kelamin }}</td>

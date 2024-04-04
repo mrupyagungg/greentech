@@ -4,47 +4,79 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB; // Import DB facade
 
 class Barang extends Model
 {
     use HasFactory;
 
-    protected $table = 'barang';
-    protected $primaryKey = 'id_barang';
-    public $incrementing = false; // Disable auto-incrementing for the primary key
-    protected $keyType = 'string'; // Define the key type as string
-    
     protected $fillable = [
         'kode_barang',
         'nama_barang',
-        'kategori_barang',
-        'deskripsi_barang',
-        'image_barang',
-        'tanggal_masuk',
+        'kategori',
+        'harga_beli',
+        'harga_jual',
+        'stok_tersedia',
+        'satuan',
+        'supplier',
+        'tanggal_pembelian_terakhir',
+        'deskripsi',
     ];
 
-    
-
-    public static function getIdbarang()
+    protected static function boot()
     {
-        // Query kode pegawai
-        $sql = "SELECT IFNULL(MAX(id_barang), 'BR-000') as id_barang 
-                FROM barang";
-        $idbarang = DB::select($sql);
+        parent::boot();
 
-        // Cacah hasilnya
-        foreach ($idbarang as $idbrng) {
-            $br = $idbrng->id_barang;
+        static::creating(function ($barang) {
+            $barang->kode_barang = static::getKodeBarang();
+            $barang->supplier = static::getSupplier();
+            
+        });
+    }
+
+    // Method untuk menghasilkan kode barang baru
+    public static function getKodeBarang()
+    {
+        // Query kode barang
+        $latestBarang = static::latest('kode_barang')->first();
+
+        if (!$latestBarang) {
+            return 'BRG-001';
         }
 
-        // Mengambil substring tiga digit akhir dari string BR-000
-        $noAwal = substr($br, -3);
-        $noAkhir = $noAwal + 1; // Menambahkan 1, hasilnya adalah integer contoh 1
+        // Extract nomor urut dari kode barang terakhir, tambahkan 1, dan format ulang
+        $latestNumber = intval(substr($latestBarang->kode_barang, 4));
+        $nextNumber = $latestNumber + 1;
+        return 'BRG-' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+    }
 
-        // Menyambung dengan string PG-001
-        $noAkhir = 'BR-' . str_pad($noAkhir, 3, "0", STR_PAD_LEFT);
+    // Method untuk menghasilkan kode supplier baru
+    public static function getSupplier()
+    {
+        // Mengambil kode supplier terakhir dari database
+        $lastBarang = Barang::latest()->first();
 
-        return $noAkhir;
-}
+        // Jika ada data barang sebelumnya, maka kode supplier baru adalah kode supplier sebelumnya + 1
+        if ($lastBarang) {
+            $lastKode = $lastBarang->supplier;
+            $noAwal = (int) substr($lastKode, -3);
+            $noAkhir = $noAwal + 1;
+        } else {
+            // Jika tidak ada data barang sebelumnya, maka kode supplier baru dimulai dari SUP-001
+            $noAkhir = 1;
+        }
+
+        // Format kode supplier dengan tiga digit angka di belakang
+        return 'SUP-' . str_pad($noAkhir, 3, "0", STR_PAD_LEFT);
+    }
+    public function getHargaBeliAttribute($value)
+    {
+        return number_format($value, 0, ',', '.');
+    }
+
+    // Accessor untuk format harga jual
+    public function getHargaJualAttribute($value)
+    {
+        return number_format($value, 0, ',', '.');
+    }
 }
