@@ -72,11 +72,11 @@
                     <span class="hide-menu">Transaksi</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ url('pemasukan') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="{{ url('penjualan') }}" aria-expanded="false">
                         <span>
                             <i class="ti ti-arrow-right"></i>
                         </span>
-                        <span class="hide-menu">Pemasukan</span>
+                        <span class="hide-menu">penjualan</span>
                     </a>
                 </li>
                 <li class="sidebar-item">

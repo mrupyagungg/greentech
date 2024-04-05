@@ -87,7 +87,7 @@
                                                 <td>{{ $b->deskripsi }}</td>
                                                 <td>{{ $b->tanggal_pembelian_terakhir }}</td>
                                                 
-                                                <td>
+                                                {{-- <td>
                                                     <a href="#" onclick="editData(this);" 
                                                     data-id="{{ $b->id }}"
                                                     data-kode-barang="{{ $b->kode_barang }}" 
@@ -101,7 +101,7 @@
                                                     <a href="#" onclick="deleteConfirm('{{ $b->id }}')" class="btn btn-danger btn-circle btn">
                                                         <i class="fas fa-trash"></i> <!-- Penyesuaian disini -->
                                                     </a>
-                                                </td>
+                                                </td> --}}
                                             </tr>
                                             @endforeach
                                         </tbody>

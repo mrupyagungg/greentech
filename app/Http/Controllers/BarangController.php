@@ -26,9 +26,10 @@ class BarangController extends Controller
     public function create()
     {
         return view('barang.create', [
-            'kode_barang' => Barang::generateKodeBarang(),
-            'supplier' => Barang::generateSupplier()
+            'kode_barang' => Barang::getKodeBarang(),
+            'supplier' => Barang::getSupplier()
         ]);
+        
         
     }
 
@@ -65,7 +66,7 @@ class BarangController extends Controller
 
         // Simpan barang ke dalam database
         $barang->save();
-
+        // Barang::create($validatedData);
         return redirect()->route('barang.index')->with('success', 'Data barang berhasil disimpan.');
     }
 

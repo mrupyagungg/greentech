@@ -25,7 +25,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="kategori" id="kategori_elektronik" value="Elektronik" checked>
                                     <label class="form-check-label" for="kategori_elektronik">
-                                        Elektronik
+                                        Tech
                                     </label>
                                 </div>
                                 <div class="form-check">

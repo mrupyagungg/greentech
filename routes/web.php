@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\PenjualanController;
 
 
 /*
@@ -96,6 +97,7 @@ Route::get('/pelanggan/create', [PelangganController::class, 'create'])->name('p
 Route::post('/pelanggan', [PelangganController::class, 'store'])->name('pelanggan.store');
 
 // Route untuk master data barang
+Route::get('/barang', 'BarangController@index')->name('barang.index');
 Route::get('/barang', [BarangController::class, 'index'])->name('barang.index');
 Route::get('/barang/create', [BarangController::class, 'create'])->name('barang.create');
 Route::post('/barang', [BarangController::class, 'store'])->name('barang.store');
@@ -107,6 +109,20 @@ Route::post('/barang/create', [BarangController::class, 'store']);
 Route::delete('/barang/{id}', 'BarangController@destroy')->name('barang.destroy');
 
 // Route::get('/barang/{id}/edit', 'BarangController@edit')->name('barang.edit');
+
+// untuk transaksi penjualan
+Route::get('penjualan/barang/{id}', [App\Http\Controllers\PenjualanController::class,'getDataBarang'])->middleware(['auth']);
+Route::get('penjualan/keranjang', [App\Http\Controllers\PenjualanController::class,'keranjang'])->middleware(['auth']);
+Route::get('penjualan/destroypenjualandetail/{id}', [App\Http\Controllers\PenjualanController::class,'destroypenjualandetail'])->middleware(['auth']);
+Route::get('penjualan/barang', [App\Http\Controllers\PenjualanController::class,'getDataBarangAll'])->middleware(['auth']);
+Route::get('penjualan/jmlbarang', [App\Http\Controllers\PenjualanController::class,'getJumlahBarang'])->middleware(['auth']);
+Route::get('penjualan/keranjangjson', [App\Http\Controllers\PenjualanController::class,'keranjangjson'])->middleware(['auth']);
+Route::get('penjualan/checkout', [App\Http\Controllers\PenjualanController::class,'checkout'])->middleware(['auth']);
+Route::get('penjualan/invoice', [App\Http\Controllers\PenjualanController::class,'invoice'])->middleware(['auth']);
+Route::get('penjualan/jmlinvoice', [App\Http\Controllers\PenjualanController::class,'getInvoice'])->middleware(['auth']);
+Route::get('penjualan/status', [App\Http\Controllers\PenjualanController::class,'viewstatus'])->middleware(['auth']);
+Route::resource('penjualan', PenjualanController::class)->middleware(['auth']);
+
 
 
 require __DIR__.'/auth.php';
