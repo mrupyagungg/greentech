@@ -27,7 +27,6 @@ class BarangController extends Controller
     {
         return view('barang.create', [
             'kode_barang' => Barang::getKodeBarang(),
-            'supplier' => Barang::getSupplier()
         ]);
         
         
@@ -64,7 +63,7 @@ class BarangController extends Controller
         $barang->harga_jual = $request->harga_jual;
         $barang->stok_tersedia = $request->stok_tersedia;
         $barang->satuan = $request->satuan;
-        $barang->supplier = $request->supplier; // Jika supplier tidak dimasukkan dalam formulir, Anda perlu menyesuaikan bagian ini
+        
         $barang->tanggal_pembelian_terakhir = $request->tanggal_pembelian_terakhir;
         $barang->deskripsi = $request->deskripsi;
         $barang->image = $imagePath; // Simpan path gambar ke dalam atribut image

@@ -7,6 +7,8 @@ use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\PresensiController;
+// use App\Http\Controllers\Str;
 
 
 /*
@@ -125,5 +127,13 @@ Route::resource('penjualan', PenjualanController::class)->middleware(['auth']);
 Route::get('/artikel',[ArticleController::class,'index'])->name('artikel.index');
 Route::post('/artikel',[ArticleController::class,'store'])->name('artikel.store');
 
+// presensi
+Route::get('/presensi', [PresensiController::class, 'index'])->name('presensi.index');
+Route::post('/presensi', [PresensiController::class, 'store'])->name('presensi.store');
+Route::get('/presensi/create', [PresensiController::class, 'create'])->name('presensi.create');
+Route::get('/presensi/{presensi}', [PresensiController::class, 'show'])->name('presensi.show');
+Route::get('/presensi/{presensi}/edit', [PresensiController::class, 'edit'])->name('presensi.edit');
+Route::get('/presensi/{presensi}/destroy', [PresensiController::class, 'destroy'])->name('presensi.destroy');
+Route::delete('/presensi/{presensi}', [PresensiController::class, 'destroy'])->name('presensi.destroy');
 
 require __DIR__.'/auth.php';

@@ -18,7 +18,7 @@ class Barang extends Model
         'harga_jual',
         'stok_tersedia',
         'satuan',
-        'supplier',
+
         'tanggal_pembelian_terakhir',
         'deskripsi',
         'image',
@@ -30,7 +30,7 @@ class Barang extends Model
 
         static::creating(function ($barang) {
             $barang->kode_barang = static::getKodeBarang();
-            $barang->supplier = static::getSupplier();
+            
             
         });
     }
@@ -49,26 +49,6 @@ class Barang extends Model
         $latestNumber = intval(substr($latestBarang->kode_barang, 4));
         $nextNumber = $latestNumber + 1;
         return 'BRG-' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
-    }
-
-    // Method untuk menghasilkan kode supplier baru
-    public static function getSupplier()
-    {
-        // Mengambil kode supplier terakhir dari database
-        $lastBarang = Barang::latest()->first();
-
-        // Jika ada data barang sebelumnya, maka kode supplier baru adalah kode supplier sebelumnya + 1
-        if ($lastBarang) {
-            $lastKode = $lastBarang->supplier;
-            $noAwal = (int) substr($lastKode, -3);
-            $noAkhir = $noAwal + 1;
-        } else {
-            // Jika tidak ada data barang sebelumnya, maka kode supplier baru dimulai dari SUP-001
-            $noAkhir = 1;
-        }
-
-        // Format kode supplier dengan tiga digit angka di belakang
-        return 'SUP-' . str_pad($noAkhir, 3, "0", STR_PAD_LEFT);
     }
     public function getHargaBeliAttribute($value)
     {
