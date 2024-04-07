@@ -50,8 +50,12 @@ class BarangController extends Controller
             'satuan' => 'required',
             'tanggal_pembelian_terakhir' => 'required|date',
             'deskripsi' => 'nullable',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Validate image
         ]);
-
+    
+        // Menyimpan gambar
+        $imagePath = $request->file('image')->store('barang', 'public');
+    
         // Buat instance barang baru
         $barang = new Barang();
         $barang->nama_barang = $request->nama_barang;
@@ -63,12 +67,14 @@ class BarangController extends Controller
         $barang->supplier = $request->supplier; // Jika supplier tidak dimasukkan dalam formulir, Anda perlu menyesuaikan bagian ini
         $barang->tanggal_pembelian_terakhir = $request->tanggal_pembelian_terakhir;
         $barang->deskripsi = $request->deskripsi;
-
+        $barang->image = $imagePath; // Simpan path gambar ke dalam atribut image
+    
         // Simpan barang ke dalam database
         $barang->save();
-        // Barang::create($validatedData);
+    
         return redirect()->route('barang.index')->with('success', 'Data barang berhasil disimpan.');
     }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -89,7 +95,7 @@ class BarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+        public function update(Request $request, $id)
     {
         // Validasi data yang dikirim dari form
         $request->validate([
@@ -114,7 +120,6 @@ class BarangController extends Controller
             'harga_jual' => $request->harga_jual,
             'stok_tersedia' => $request->stok_tersedia,
             'satuan' => $request->satuan,
-            'supplier' => $request->supplier,
             'tanggal_pembelian_terakhir' => $request->tanggal_pembelian_terakhir,
             'deskripsi' => $request->deskripsi,
         ]);
@@ -122,6 +127,7 @@ class BarangController extends Controller
         // Redirect ke halaman tertentu dengan pesan sukses
         return redirect()->route('barang.index')->with('success', 'Data barang berhasil diperbarui');
     }
+
 
     /**
      * Remove the specified resource from storage.

@@ -25,6 +25,7 @@ class CreateBarangsTable extends Migration
             $table->string('supplier');
             $table->date('tanggal_pembelian_terakhir');
             $table->text('deskripsi')->nullable();
+            $table->text('image')->nullable();
             $table->timestamps();
         });
     }

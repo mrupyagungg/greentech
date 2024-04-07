@@ -6,6 +6,7 @@ use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PelangganController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\ArticleController;
 
 
 /*
@@ -108,8 +109,6 @@ Route::delete('/barang/destroy/{barang}', [BarangController::class, 'destroy'])-
 Route::post('/barang/create', [BarangController::class, 'store']);
 Route::delete('/barang/{id}', 'BarangController@destroy')->name('barang.destroy');
 
-// Route::get('/barang/{id}/edit', 'BarangController@edit')->name('barang.edit');
-
 // untuk transaksi penjualan
 Route::get('penjualan/barang/{id}', [App\Http\Controllers\PenjualanController::class,'getDataBarang'])->middleware(['auth']);
 Route::get('penjualan/keranjang', [App\Http\Controllers\PenjualanController::class,'keranjang'])->middleware(['auth']);
@@ -123,6 +122,8 @@ Route::get('penjualan/jmlinvoice', [App\Http\Controllers\PenjualanController::cl
 Route::get('penjualan/status', [App\Http\Controllers\PenjualanController::class,'viewstatus'])->middleware(['auth']);
 Route::resource('penjualan', PenjualanController::class)->middleware(['auth']);
 
+Route::get('/artikel',[ArticleController::class,'index'])->name('artikel.index');
+Route::post('/artikel',[ArticleController::class,'store'])->name('artikel.store');
 
 
 require __DIR__.'/auth.php';

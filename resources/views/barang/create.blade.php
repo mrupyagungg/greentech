@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <h5 class="card-title fw-semibold mb-4">Tambah Data Barang</h5>
-                        <form method="POST" action="{{ route('barang.store') }}" enctype="multipart/form-data">
+                        <form method="post" action="{{ route('barang.store') }}" enctype="multipart/form-data">
                             @csrf
                             <fieldset disabled>
                                 <div class="mb-3"><label for="kodebaranglabel">Kode barang</label>
@@ -23,7 +23,7 @@
                             <div class="form-group">
                                 <label>Kategori</label>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="kategori" id="kategori_elektronik" value="Elektronik" checked>
+                                    <input class="form-check-input" type="radio" name="kategori" id="kategori_elektronik" value="Tech" checked>
                                     <label class="form-check-label" for="kategori_elektronik">
                                         Tech
                                     </label>
@@ -71,6 +71,10 @@
                                 <label for="deskripsi">Deskripsi</label>
                                 <textarea class="form-control" id="deskripsi" name="deskripsi" rows="3"></textarea>
                             </div>
+                            <div class="mb-3">
+                                <label for="image" class="form-label">Gambar</label>
+                                <input type="file" accept="image/*" id="image" name="image" value="" class="form-control">
+                            </div>                            
                             <button type="submit" class="btn btn-primary">Simpan</button>
                         </form>
                     </div>

@@ -21,6 +21,7 @@ class Barang extends Model
         'supplier',
         'tanggal_pembelian_terakhir',
         'deskripsi',
+        'image',
     ];
 
     protected static function boot()

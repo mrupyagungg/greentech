@@ -64,29 +64,33 @@
                                 <div class="collapse show" id="collapseCardExample{{$p->id}}">
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-4">
-                                                <a data-fancybox="gallery" href="{{url('barang/')}}/{{ $p->foto }}">
-                                                    <img width="150px" height="150px" id="x-2" src="{{url('barang/')}}/{{ $p->foto }}" zn_id="79">
-                                                </a>
+                                            <div class="col-md-4">
+                                                <a data-fancybox="gallery">
+                                                    <img src="{{ url('storage/' . $p->image)}}" class="card-img-top" width="150px" height="150px" id="x-2" alt="">
+                                                </a>                                                
                                             </div>
-                                            <div class="col-4" align="justify">
-                                                {{ $p->deskripsi }}
-                                            </div>
-                                            <div class="col-4" align="justify">
-                                                <i class="fas fa-box-open"></i>&nbsp;&nbsp;Stok : <b id="xstok-{{$p->id}}">{{ $p->stok_tersedia }}</b><br><br>
-                                                <i class="fas fa-window-restore"></i>&nbsp;&nbsp;Kategori : <b id="kategori_barang-{{$p->id}}">{{ $p->kategori }}</b><br><br>
-                                                <i class="fas fa-coins"></i></i>&nbsp;&nbsp;Rp {{$p->harga_jual}} <br><br>
-                                                <a href="#" class="btn btn-primary btn-icon-split tampilmodaltambah" data-toogle="modal" data-target="#ubahModal" data-id="{{ $p->id }}">
-                                                    <span class="icon text-white-50">
-                                                    <i class="fa fa-shopping-cart"></i>
-                                                    </span>
-                                                    <span class="text">Tambah</span>
-                                                </a>
-                        
+                                            <div class="col-md-8">
+                                                <div class="row">
+                                                    <div class="col-12" align="justify">
+                                                        <p>{{ $p->deskripsi }}</p>
+                                                    </div>
+                                                    <div class="col-12" align="justify">
+                                                        <i class="fas fa-box-open"></i>&nbsp;&nbsp;Stok : <b id="xstok-{{$p->id}}">{{ $p->stok_tersedia }}</b><br><br>
+                                                        <i class="fas fa-window-restore"></i>&nbsp;&nbsp;Kategori : <b id="kategori_barang-{{$p->id}}">{{ $p->kategori }}</b><br><br>
+                                                        <i class="fas fa-coins"></i>&nbsp;&nbsp;Rp {{$p->harga_jual}} <br><br>
+                                                        <a href="#" class="btn btn-primary btn-icon-split tampilmodaltambah" data-toogle="modal" data-target="#ubahModal" data-id="{{ $p->id }}">
+                                                            <span class="icon text-white-50">
+                                                                <i class="fa fa-shopping-cart"></i>
+                                                            </span>
+                                                            <span class="text">Tambah</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
                             <br>
 
@@ -175,25 +179,35 @@
 
       $(function(){
             $('.tampilmodaltambah').on('click', function(){
-              // merubah label menjadi Tambah Data Kamar
-              $('#labelmodalubah').html('Tambah Data Belanja');
+            $('#labelmodalubah').html('Tambah Data Belanja');
 
-              var id = $(this).data('id');
-              var url1 = "{{url('/penjualan/barang')}}";
-              var url2 = url1.concat("/",id); //menggabungkan url dengan data nama file
+            var id = $(this).data('id');
+            var url1 = "{{url('/penjualan/barang')}}";
+            var url2 = url1.concat("/",id);
 
-              url = "{{url('penjualan')}}";
-              $('.formpenjualan').attr('action',url);
+            url = "{{url('penjualan')}}";
+            $('.formpenjualan').attr('action',url);
+            $('#tipeproses').val('tambah');
 
-              $('#tipeproses').val('tambah'); //untuk identifikasi di controller apakah tambah atau update
+            $.ajax({
+                type: "get",
+                url: url2,
+                dataType: "json",
+                success: function (response) {
+                    $('#nama_barang').val(response.barang[0].nama_barang);
+                    $('#harga_jual').val(number_format(response.barang[0].harga));
+                    $('#jumlah').attr({
+                        'min':1,
+                        'max':response.barang[0].stok_tersedia // Perbaikan: ganti response.barang[0].stok menjadi response.barang[0].stok_tersedia
+                    });
+                    $('#idbaranghidden').val(response.barang[0].id);
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText); // Tampilkan pesan error jika terjadi kesalahan pada AJAX
+                }
+            });
 
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-              $('#ubahModal').modal('show');
+            $('#ubahModal').modal('show');
               
               $.ajax(
                 {
@@ -205,7 +219,7 @@
                     success: function (response) {
                         // console.log(response);
                         $('#nama_barang').val(response.barang[0].nama_barang);
-                        $('#harga').val(number_format(response.barang[0].harga));
+                        $('#harga_jual').val(number_format(response.barang[0].harga));
                         $('#jumlah').attr(
                             {
                                 'min':1,
