@@ -58,11 +58,11 @@
                                     <!-- Anda dapat menambahkan opsi lainnya sesuai kebutuhan -->
                                 </select>
                             </div>
-                            <fieldset disabled>
+                            {{-- <fieldset disabled>
                                 <div class="mb-3"><label for="kodebaranglabel">Supplier</label>
                                     <input class="form-control form-control-solid" id="supplier" name="supplier" type="text" value="{{$supplier}}" readonly>
                                 </div>
-                            </fieldset>
+                            </fieldset> --}}
                             <div class="form-group">
                                 <label for="tanggal_pembelian_terakhir">Tanggal Pembelian Terakhir</label>
                                 <input type="date" class="form-control" id="tanggal_pembelian_terakhir" name="tanggal_pembelian_terakhir" required>

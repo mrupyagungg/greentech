@@ -57,7 +57,7 @@
                                                 <th>Hrg Jual</th>
                                                 <th>Stok</th>
                                                 <th>Satuan</th>
-                                                <th>Supplier</th>
+                                                {{-- <th>Supplier</th> --}}
                                                 <th>Tanggal Pembelian</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -71,7 +71,7 @@
                                                 <th>Hrg Jual</th>
                                                 <th>Stok</th>
                                                 <th>Satuan</th>
-                                                <th>Supplier</th>
+                                                {{-- <th>Supplier</th> --}}
                                                 <th>Tanggal Pembelian</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -86,7 +86,7 @@
                                                 <td>Rp. {{ $b->harga_jual }}</td>
                                                 <td>{{ $b->stok_tersedia }}</td>
                                                 <td>{{ $b->satuan }}</td>
-                                                <td>{{ $b->supplier }}</td>
+                                                {{-- <td>{{ $b->supplier }}</td> --}}
                                                 <td>{{ $b->tanggal_pembelian_terakhir }}</td>
                                                 <td>
                                                     <a href="#" onclick="editData(this);" 

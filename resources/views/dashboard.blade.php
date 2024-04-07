@@ -27,9 +27,9 @@
                                        SALDO</div>
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">Rp.
                                         <button>
-                                            <span id="visibleText" onclick="toggleVisibility('visibleText', 'hiddenText')">40,000</span>
+                                            <span id="visibleText" onclick="toggleVisibility('visibleText', 'hiddenText')">****** <i class="fa fa-eye-slash"></span></i>
                                             <!-- Teks yang tidak bisa dilihat -->
-                                            <span id="hiddenText" style="display: none;" onclick="toggleVisibility('hiddenText', 'visibleText')">********</span>
+                                            <span id="hiddenText" style="display: none;" onclick="toggleVisibility('hiddenText', 'visibleText')">40,000 <i class="fa fa-eye"></span></i>
                                         </button>
                                         <style>
                                             /* Tombol tanpa batas */
