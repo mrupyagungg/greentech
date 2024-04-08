@@ -18,7 +18,6 @@ class Barang extends Model
         'harga_jual',
         'stok_tersedia',
         'satuan',
-
         'tanggal_pembelian_terakhir',
         'deskripsi',
         'image',
