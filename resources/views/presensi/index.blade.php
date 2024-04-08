@@ -24,110 +24,103 @@
 <!--  Main wrapper -->
 <div class="body-wrapper">
 
-      <div class="container-fluid">
+    <div class="container-fluid">
         <div class="container-fluid">
-          <div class="card">
-            <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h4 class="m-0 font-weight-bold text-primary">Master Data presensi</h4>
-                
-                <!-- Tombol Tambah Data -->
-                <a href="{{ url('/presensi/create') }}" class="btn btn-primary btn-icon-split btn-sm">
-                    <span class="icon text-white-50">
-                        <i class="ti ti-plus"></i>
-                    </span>
-                    <span class="text">Tambah Data</span>
-                </a>
-                <!-- Akghir Tombol Tambah Data -->
-
-            </div>
-
-            <div class="card-body">
-                @if (session('success'))
-                    <div class="alert alert-success" role="alert">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Kode Presensi</th>
-                            <th>Nama Pegawai </th>
-                            <th>Check In</th>
-                            <th>Auto Check</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($presensi as $pres)
-                        <tr>
-                            <td>{{ $pres->kode_presensi }}</td>
-                            <td>{{ $pres->nama_pegawai }}</td> 
-                            <td>{{ $pres->check_in }}</td>
-                            <td>{{ $pres->updated_at }}</td>
-                            
-                            <td>
-                                <!-- Tombol untuk menampilkan detail, edit, dan hapus -->
-                                <a class="btn btn-primary" href="{{ route('presensi.show',$pres->id) }}">Show</a>
-                                <a class="btn btn-success" href="{{ route('presensi.edit',$pres->id) }}">Edit</a>
-                                <form action="{{ route('presensi.destroy', $pres->id) }}" method="POST" style="display: inline-block;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?')">Delete</button>
-                                </form>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-          </div>
-        </div>
-        <script>
-            // Panggil fungsi changeTextColor() saat halaman dimuat
-            window.onload = function() {
-                changeTextColor();
-            };
-        </script>
-        
-
-        <script>
-            function deleteConfirm(e) {
-            var tomboldelete = document.getElementById('btn-delete');  
-            id = e.getAttribute('data-id');
-            nama = e.getAttribute('data-nama'); 
-
-            var url3 = "{{url('presensi/destroy/')}}";
-            var url4 = url3.concat("/", id);
-            tomboldelete.setAttribute("href", url4);
-
-            var pesan = "Apakah Anda yakin ingin menghapus data <b>";
-            var pesan2 = "</b> dengan ID <b>" + id + "</b>?"; 
-            document.getElementById("xid").innerHTML = pesan.concat(nama, pesan2);
-
-            var myModal = new bootstrap.Modal(document.getElementById('deleteModal'), {keyboard: false});
-            myModal.show();
-        }
-        </script>
-
-        <!-- Logout Delete Confirmation-->
-        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Apakah anda yakin?</h5>
-                    <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close">
-                        x
-                    </button>
-                </div>
-                <div class="modal-body" id="xid"></div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
-                    <a id="btn-delete" class="btn btn-danger" href="#">Hapus</a>
+            <div class="card">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h4 class="m-0 font-weight-bold text-primary">Form presensi</h4>
                     
+                    <!-- Tombol Tambah Data -->
+                    <a href="{{ url('/presensi/create') }}" class="btn btn-primary btn-icon-split btn-sm">
+                        <span class="icon text-white-50">
+                            <i class="ti ti-plus"></i>
+                        </span>
+                        <span class="text">Tambah Data</span>
+                    </a>
+                    <!-- Akhir Tombol Tambah Data -->
+    
                 </div>
-                </div>
+
+                <div class="card-body">
+                    <!-- Awal Dari Tabel -->
+                      <div class="table-responsive">
+                          <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                  <thead class="thead-dark">
+                                    <tr style="background-color: rgb(230, 230, 230)">
+                                        <th>Kode Presensi</th>
+                                        <th>Nama Pegawai</th>
+                                        <th>Status</th>
+                                        <th>Time</th>
+                                        <th>Action</th>
+                                    </tr>
+                                  </thead>
+                                  <tfoot class="thead-dark">
+                                    <tr style="background-color: rgb(230, 230, 230)">
+                                        <th>Kode Presensi</th>
+                                        <th>Nama Pegawai</th>
+                                        <th>Status</th>
+                                        <th>Time</th>
+                                        <th>Action</th>
+                                    </tr>
+                               </tfoot>
+                              <tbody>
+                                @foreach ($presensi as $pres)
+                                <tr>
+                                    <td>{{ $pres->kode_presensi }}</td>
+                                    <td>{{ $pres->nama_pegawai }}</td> 
+                                    <td>{{ $pres->check_in }}</td>
+                                    <td>{{ $pres->updated_at }}</td>
+                                    
+                                    <td>
+                                        <!-- Tombol untuk menampilkan detail, edit, dan hapus -->
+                                        <a class="btn btn-primary" href="{{ route('presensi.show',$pres->id) }}">Show</a>
+                                        <a class="btn btn-success" href="{{ route('presensi.edit',$pres->id) }}">Edit</a>
+                                       <!-- Tombol untuk membuka modal konfirmasi penghapusan -->
+                                        <button class="btn btn-danger" onclick="confirmDelete('{{ $pres->id }}', '{{ $pres->nama_pegawai }}')">Delete</button>
+                                    </td>
+                                </tr>
+                                @endforeach
+                                  </tbody>
+                              </table>
+                          </div>
+                  <!-- Akhir Dari Tabel -->
+                  </div>
             </div>
-        </div>   
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Penghapusan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Apakah Anda yakin ingin menghapus data ini?
+            </div>
+            <div class="modal-footer">
+                <a href="{{ route('presensi.index') }}" class="btn btn-dark">Back</a>
+                <form id="deleteForm" method="POST" action="">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Hapus</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function confirmDelete(id, nama) {
+        var form = document.getElementById('deleteForm');
+        form.action = '{{ url('presensi') }}' + '/' + id;
+        $('#deleteModal').modal('show');
+    }
+</script>
+
 @endsection

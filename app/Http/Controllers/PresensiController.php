@@ -60,7 +60,7 @@ class PresensiController extends Controller
                 'kode_presensi' => 'required',
                 'nama_pegawai' => 'required|string',
                 'check_in' => 'required',
-                'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Validate image
+                'image' => 'image|mimes:jpeg,png,jpg|max:2048', // Validate image
             ]);
         
             // Simpan data presensi ke dalam database
@@ -123,6 +123,10 @@ class PresensiController extends Controller
      */
     public function destroy(Presensi $presensi)
     {
-        //
+         // Hapus entri presensi dari database
+    $presensi->delete();
+
+    // Redirect user ke halaman presensi dengan pesan sukses
+    return redirect('/presensi')->with('success', 'Data presensi telah dihapus!');
     }
 }

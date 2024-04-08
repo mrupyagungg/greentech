@@ -135,5 +135,6 @@ Route::get('/presensi/{presensi}', [PresensiController::class, 'show'])->name('p
 Route::get('/presensi/{presensi}/edit', [PresensiController::class, 'edit'])->name('presensi.edit');
 Route::get('/presensi/{presensi}/destroy', [PresensiController::class, 'destroy'])->name('presensi.destroy');
 Route::delete('/presensi/{presensi}', [PresensiController::class, 'destroy'])->name('presensi.destroy');
+Route::resource('presensi', PresensiController::class);
 
 require __DIR__.'/auth.php';

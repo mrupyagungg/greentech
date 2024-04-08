@@ -67,7 +67,7 @@
 
                     <div class="card-body">
                       <!-- Awal Dari Tabel -->
-                    <div class="table-responsive">
+                        <div class="table-responsive">
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead class="thead-dark">
                                         <tr>
