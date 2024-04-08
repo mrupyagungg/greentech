@@ -1,6 +1,9 @@
 @extends('layoutadmin')
 
 @section('konten')
+
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 <script>
     window.onload = function() {
         updateProgressBar();
@@ -72,12 +75,11 @@
                                     <td>{{ $pres->check_in }}</td>
                                     <td>{{ $pres->updated_at }}</td>
                                     
-                                    <td>
+                                    <td style="text-align: center">
                                         <!-- Tombol untuk menampilkan detail, edit, dan hapus -->
-                                        <a class="btn btn-primary" href="{{ route('presensi.show',$pres->id) }}">Show</a>
-                                        <a class="btn btn-success" href="{{ route('presensi.edit',$pres->id) }}">Edit</a>
-                                       <!-- Tombol untuk membuka modal konfirmasi penghapusan -->
-                                        <button class="btn btn-danger" onclick="confirmDelete('{{ $pres->id }}', '{{ $pres->nama_pegawai }}')">Delete</button>
+                                        <a class="btn btn-primary" href="{{ route('presensi.show',$pres->id) }}"><i class="fas fa-eye"></i></a>
+                                        <a class="btn btn-success" href="{{ route('presensi.edit',$pres->id) }}"><i class="fas fa-edit"></i></a>
+                                        <button class="btn btn-danger" onclick="confirmDelete('{{ $pres->id }}', '{{ $pres->nama_pegawai }}')"> <i class="fas fa-trash"></i></button>
                                     </td>
                                 </tr>
                                 @endforeach
