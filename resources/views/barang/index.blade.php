@@ -41,7 +41,7 @@
                                     </button>
                                     <div class="dropdown-menu">
                                         <a class="dropdown-item" href="{{ url('/barang/create') }}">Tambah Barang</a>
-                                        <a class="dropdown-item" href="{{ url('/supplier/create') }}">Tambah Supplier</a>
+                                        <a class="dropdown-item" href="{{ url('/supplier') }}">Tambah Supplier</a>
                                     </div>
                                 </div>
                             </div>

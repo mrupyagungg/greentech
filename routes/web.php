@@ -8,7 +8,8 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PresensiController;
-// use App\Http\Controllers\Str;
+use App\Http\Controllers\SupplierController;
+
 
 
 /*
@@ -136,5 +137,10 @@ Route::get('/presensi/{presensi}/edit', [PresensiController::class, 'edit'])->na
 Route::get('/presensi/{presensi}/destroy', [PresensiController::class, 'destroy'])->name('presensi.destroy');
 Route::delete('/presensi/{presensi}', [PresensiController::class, 'destroy'])->name('presensi.destroy');
 Route::resource('presensi', PresensiController::class);
+
+// supplier
+Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier.index');
+Route::post('/supplier', [SupplierController::class, 'store'])->name('supplier.store');
+Route::get('/supplier/create', [SupplierController::class, 'create'])->name('supplier.create');
 
 require __DIR__.'/auth.php';

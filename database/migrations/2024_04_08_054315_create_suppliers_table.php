@@ -15,6 +15,13 @@ class CreateSuppliersTable extends Migration
     {
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_supplier', 6);
+            $table->string('nama_supplier', 50);
+            $table->string('kategori');
+            $table->string('alamat', 100);
+            $table->string('no_telp', 100);  
+            $table->dateTime('tgl_transaksi', $precision = 0); 
+            $table->text('ket');
             $table->timestamps();
         });
     }
