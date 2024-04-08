@@ -119,18 +119,18 @@
             <input type="hidden" id="idbaranghidden" name="idbaranghidden" value="">
             <input type="hidden" id="tipeproses" name="tipeproses" value="">
 
-                <div class="mb-3 row">
-                    <label for="nomerlabel" class="col-sm-4 col-form-label">Nama Barang</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="nama_barang" name="nama_barang" readonly>
-                    </div>
+            <div class="mb-3 row">
+                <label for="nomerlabel" class="col-sm-4 col-form-label">Nama Barang</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="nama_barang" name="nama_barang" value="{{ $p->nama_barang }}" readonly>
                 </div>
-                <div class="mb-3 row">
-                    <label for="lantailabel" class="col-sm-4 col-form-label">Harga Barang</label>
-                    <div class="col-sm-8">
-                        <input type="text" class="form-control" id="harga" name="harga" readonly>
-                    </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="lantailabel" class="col-sm-4 col-form-label">Harga Barang</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" id="harga_jual" name="harga_jual" value="{{ $p->harga_jual }}" readonly> 
                 </div>
+            </div>
                 <div class="mb-3 row">
                     <label for="hargalabel" class="col-sm-4 col-form-label">Jumlah</label>
                     <div class="col-sm-8">
@@ -238,71 +238,74 @@
 
 <!-- Ketika tombol submit di form ditekan -->
 <script>
-
-        // definisikan tipe method yang berbeda 
-        // untuk update=>put (pembedanga adalah inner html pada labelmodalubah berisi Ubah Data Coa)
-        // sedangkan untuk input=>post nilai inner html pada labelmodalubah berisi Tambah Data Coa
-        $(document).ready(function()
-            {   		
-                $('.formpenjualan').submit(function(e)
-                    {
-                        e.preventDefault();
-                        const fd = new FormData(this);
-                        // var id = $(this).data('id');
-                        // console.log(id);
-                            $.ajax(
-                                {
-                                    type: "post", //isinya post untuk insert dan put untuk delete
-                                    url: $(this).attr('action'),
-                                    //data: $(this).serialize(),
-                                    data: fd,
-                                    cache: false,
-                                    contentType: false,
-                                    processData: false,
-                                    dataType: "json",
-                                    success: function (response){
-                                        // console.log(response);
-                                        // jika responsenya adalah error
-                                        if (response.status == 400) {
-                                            if(response.errors.jumlah){
-                                                $('#jumlah').removeClass('is-valid').addClass('is-invalid');
-                                                $('.errorjumlah').html(response.errors.jumlah);
-                                            }else{
-                                                $('#jumlah').removeClass('is-invalid').addClass('is-valid');
-                                                $('.errorjumlah').html();
-                                            }
-
-                                        }
-                                        else{
-                                            // munculkan pesan sukses
-                                            Swal.fire({
-                                                title: 'Berhasil!',
-                                                text: response.sukses,
-                                                icon: 'success',
-                                                confirmButtonText: 'Ok'
-                                            });
-                                            
-                                            // kosongkan form
-                                            $('#ubahModal').modal('hide');
-                                            // ubah tampilan stok
-                                            // get htmlnya
-                                            // dapatkan idnya dari
-                                            var id = $('#idbaranghidden').val();
-                                            refreshstok();
-                                            
-                                        }
-                                    },
-                                    error: function(xhr, ajaxOptions, thrownError){
-                                        alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-                                    } 
-                                } 
-                            );
-                            return false;
-                    }
-                );
+    $(document).ready(function() {
+        $('.formpenjualan').submit(function(e) {
+            e.preventDefault();
+            var fd = new FormData(this);
+            $.ajax({
+                type: "POST",
+                url: $(this).attr('action'),
+                data: fd,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function(response) {
+                    handleResponse(response);
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                }
+            });
+            return false;
+        });
+    });
+    
+    function handleResponse(response) {
+        if (response && response.status == "success") {
+            Swal.fire({
+                title: 'Berhasil!',
+                text: response.message,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            });
+            $('#ubahModal').modal('hide');
+            refreshstok();
+        } else if (response && response.status == "error") {
+            if (response.errors && response.errors.jumlah) {
+                $('#jumlah').removeClass('is-valid').addClass('is-invalid');
+                $('.errorjumlah').html(response.errors.jumlah);
+            } else {
+                $('#jumlah').removeClass('is-invalid').addClass('is-valid');
+                $('.errorjumlah').html('');
             }
-        );
-</script>
+        } else {
+            alert('Respons tidak valid');
+        }
+    }
+    
+    function refreshstok() {
+        $.ajax({
+            type: "GET",
+            url: "{{ url('penjualan/barang') }}",
+            dataType: "json",
+            success: function(response) {
+                if (response && response.barang) {
+                    $.each(response.barang, function(key, item) {
+                        var idelemenstok = "#xstok-" + item.id;
+                        $(idelemenstok).html(item.stok);
+                    });
+                } else {
+                    alert('Data stok tidak valid');
+                }
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+            }
+        });
+    }
+    </script>
+    
 <!-- Akhir ketika tombol submit di form ditekan -->
 
 <!-- Proses merefresh isian stok dan list -->
@@ -326,5 +329,6 @@
         
     </script>
 <!-- Akhir mengisi data pada tabel -->
+
 
 @endsection
