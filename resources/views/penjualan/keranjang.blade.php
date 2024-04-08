@@ -16,9 +16,7 @@
 
 <!--  Main wrapper -->
 <div class="body-wrapper">
-      <!--  Header Start -->
-      <!--  Header End -->
-      <div class="container-fluid">
+    <div class="container-fluid">
         <div class="container-fluid">
           <div class="card">
             <div class="card-body">
@@ -132,5 +130,4 @@
         </div>
     </div>   
 <!-- Akhir Modal Delete -->
-
 @endsection

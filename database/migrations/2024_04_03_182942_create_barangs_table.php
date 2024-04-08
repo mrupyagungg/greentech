@@ -22,7 +22,7 @@ class CreateBarangsTable extends Migration
             $table->decimal('harga_jual', 10);
             $table->integer('stok_tersedia');
             $table->string('satuan');
-            $table->string('supplier');
+            $table->string('supplier')->nullable();
             $table->date('tanggal_pembelian_terakhir');
             $table->text('deskripsi')->nullable();
             $table->text('image')->nullable();

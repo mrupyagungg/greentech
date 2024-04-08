@@ -108,7 +108,7 @@ $(document).ready(function () {
                     </div>
                     <div class="modal-body">
                         <!-- Form untuk input -->
-                        <form action="#" class="formpenjualan" method="post">
+                        <form action="{{ 'penjualan/keranjang' }}" class="formpenjualan" method="get">
                         @csrf
                         <input type="hidden" id="idbaranghidden" name="idbaranghidden" value="">
                         <input type="hidden" id="tipeproses" name="tipeproses" value="">

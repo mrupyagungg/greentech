@@ -124,6 +124,7 @@ Route::get('penjualan/invoice', [App\Http\Controllers\PenjualanController::class
 Route::get('penjualan/jmlinvoice', [App\Http\Controllers\PenjualanController::class,'getInvoice'])->middleware(['auth']);
 Route::get('penjualan/status', [App\Http\Controllers\PenjualanController::class,'viewstatus'])->middleware(['auth']);
 Route::resource('penjualan', PenjualanController::class)->middleware(['auth']);
+Route::get('penjualan/keranjang', [PenjualanController::class, 'tambahKeKeranjang'])->name('tambah.kekeranjang');
 
 Route::get('/artikel',[ArticleController::class,'index'])->name('artikel.index');
 Route::post('/artikel',[ArticleController::class,'store'])->name('artikel.store');

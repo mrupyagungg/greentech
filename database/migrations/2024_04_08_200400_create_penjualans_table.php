@@ -13,7 +13,7 @@ class CreatePenjualansTable extends Migration
      */
     public function up()
     {
-        Schema::create('penjualan', function (Blueprint $table) {
+        Schema::create('penjualans', function (Blueprint $table) {
             $table->increments('id');
             $table->string('no_transaksi',7);
             $table->integer('id_customer');
@@ -31,6 +31,6 @@ class CreatePenjualansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('penjualan');
+        Schema::dropIfExists('penjualans');
     }
 }
