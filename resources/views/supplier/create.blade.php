@@ -22,35 +22,35 @@
                 <!-- Akhir Display Error -->
 
                 <!-- Awal Dari Input Form -->
-                <form action="{{ url('/supplier') }}" method="POST" class="needs-validation" novalidate>
+                <form action="{{ route('supplier.store') }}" method="POST" class="needs-validation" novalidate>
                     @csrf
+                    <fieldset disabled>
+                        <div class="mb-3"><label for="kodesupplierlabel">Kode supplier</label>
+                        <input class="form-control form-control-solid" id="kode_supplier_tampil" name="kode_supplier_tampil" type="text" value="{{$kode_supplier}}" readonly></div>
+                    </fieldset>
+                    <input type="hidden" id="kode_supplier" name="kode_supplier" value="{{$kode_supplier}}">
                     <div class="form-group">
-                        <label for="kode">Kode</label>
-                        <input type="text" class="form-control" id="kode" name="kode" required>
+                        <label for="nama_supplier">Nama Supplier</label>
+                        <input type="text" class="form-control" id="nama_supplier" name="nama_supplier" required>
                         <div class="invalid-feedback">
-                            Kode wajib diisi.
+                            Nama Supplier wajib diisi.
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="nama">Nama</label>
-                        <input type="text" class="form-control" id="nama" name="nama" required>
-                        <div class="invalid-feedback">
-                            Nama wajib diisi.
-                        </div>
-                    </div>
+                    
                     <div class="form-group">
                         <label>Kategori</label>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="kategori" id="kategori_barnag" value="Barang" checked>
-                            <label class="form-check-label" for="kategori_barnag">
+                            <input class="form-check-input" type="radio" name="kategori" id="kategori_barang" value="Barang" checked>
+                            <label class="form-check-label" for="kategori_barang">
                                 Barang
                             </label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="kategori" id="kategori" value="jasa">
-                            <label class="form-check-label" for="kategori">
-                                jasa
+                            <input class="form-check-input" type="radio" name="kategori" id="kategori_jasa" value="Jasa">
+                            <label class="form-check-label" for="kategori_jasa">
+                                Jasa
                             </label>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="alamat">Alamat</label>
@@ -60,15 +60,16 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="contact">Contact</label>
-                        <input type="number" class="form-control" id="contact" name="contact" required>
+                        <label for="no_telp">Contact</label>
+                        <input type="text" class="form-control" id="no_telp" name="no_telp" required>
                         <div class="invalid-feedback">
-                            Contact wajib diisi.
+                            No Telp wajib diisi.
                         </div>
                     </div>
+                    
                     <div class="form-group">
-                        <label for="term_of_payment">Term of Payment</label>
-                        <input type="text" class="form-control" id="term_of_payment" name="term_of_payment" required>
+                        <label for="tgl_transaksi">Term of Payment</label>
+                        <input type="date" class="form-control" id="tgl_transaksi" name="tgl_transaksi" required>
                         <div class="invalid-feedback">
                             Term of Payment wajib diisi.
                         </div>

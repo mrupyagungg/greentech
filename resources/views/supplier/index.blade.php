@@ -21,6 +21,11 @@
         padding: 2rem;
         size: 6rem;
     }
+    .aksi{
+        width: 15%;
+        justify-content: center;
+        text-align: center;
+    }
 </style>
 
 <div class="body-wrapper">
@@ -48,7 +53,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <table class="table table-bordered" id="dataTable" width="126%" cellspacing="0">
                                         <thead class="thead-dark">
                                             <tr>
                                                 <th>Kode</th>
@@ -73,6 +78,24 @@
                                                 <th>Aksi</th>
                                             </tr>
                                         </tfoot>
+                                        <tbody>
+                                            @foreach ($suppliers as $sup)
+                                            <tr>
+                                                <td>{{ $sup->kode_supplier }}</td>
+                                                <td>{{ $sup->nama_supplier }}</td> 
+                                                <td>{{ $sup->kategori }}</td>
+                                                <td>{{ $sup->alamat }}</td>
+                                                <td>{{ $sup->no_telp }}</td>
+                                                <td>{{ $sup->tgl_transaksi }}</td>
+                                                <td>{{ $sup->ket }}</td>
+                                                <td class="aksi">
+                                                    <!-- Tombol untuk menampilkan detail, edit, dan hapus -->
+                                                    <a class="btn btn-success" href="{{ route('presensi.edit',$sup->id) }}"><i class="fas fa-edit"></i></a>
+                                                    <button class="btn btn-danger" onclick="confirmDelete('{{ $sup->id }}', '{{ $sup->nama_pegawai }}')"> <i class="fas fa-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                              </tbody>
                                     </table>
                                 </div>
                             </div>

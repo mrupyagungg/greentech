@@ -17,7 +17,7 @@ class CreatePresensisTable extends Migration
             $table->id();
             $table->string('kode_presensi', 6);
             $table->string('nama_pegawai', 50);
-            $table->dateTime('check_in');
+            $table->string('check_in');
             $table->string('image')->nullable();
             $table->timestamps();
         });
