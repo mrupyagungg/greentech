@@ -5,7 +5,7 @@
 <!-- Main wrapper -->
 <div class="body-wrapper">
     <div class="container-fluid">
-        <div class="card">
+        <div class="card  mx-auto" style="max-width: 550px;">
             <div class="card-body">
                 <h5 class="card-title fw-semibold mb-4">Tambah Data Supplier</h5>
 

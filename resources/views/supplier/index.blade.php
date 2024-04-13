@@ -90,8 +90,8 @@
                                                 <td>{{ $sup->ket }}</td>
                                                 <td class="aksi">
                                                     <!-- Tombol untuk menampilkan detail, edit, dan hapus -->
-                                                    <a class="btn btn-success" href="{{ route('presensi.edit',$sup->id) }}"><i class="fas fa-edit"></i></a>
                                                     <button class="btn btn-danger" onclick="confirmDelete('{{ $sup->id }}', '{{ $sup->nama_pegawai }}')"> <i class="fas fa-trash"></i></button>
+                                                    <a class="btn btn-success" href="{{ route('presensi.edit',$sup->id) }}"><i class="fas fa-edit"></i></a>
                                                 </td>
                                             </tr>
                                             @endforeach

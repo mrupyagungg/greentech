@@ -135,7 +135,7 @@ Route::post('/presensi', [PresensiController::class, 'store'])->name('presensi.s
 Route::get('/presensi/create', [PresensiController::class, 'create'])->name('presensi.create');
 Route::get('/presensi/{presensi}', [PresensiController::class, 'show'])->name('presensi.show');
 Route::get('/presensi/{presensi}/edit', [PresensiController::class, 'edit'])->name('presensi.edit');
-Route::get('/presensi/{presensi}/destroy', [PresensiController::class, 'destroy'])->name('presensi.destroy');
+Route::put('/presensi/{presensi}', [PresensiController::class, 'update'])->name('presensi.update');
 Route::delete('/presensi/{presensi}', [PresensiController::class, 'destroy'])->name('presensi.destroy');
 Route::resource('presensi', PresensiController::class);
 

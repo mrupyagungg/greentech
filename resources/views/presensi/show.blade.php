@@ -1,7 +1,11 @@
 @extends('layoutadmin')
 
 @section('konten')
-
+<style>
+    input{
+        text-transform: capitalize;
+    }
+</style>
 <div class="body-wrapper">
 
     <div class="container-fluid">
@@ -29,12 +33,15 @@
                                 <input class="form-control" id="nama_pegawai" name="nama_pegawai" type="text" value="{{ $presensi->created_at }}" readonly>
                             </div>
                             <div class="form-group">
+                                @if($presensi->image)
                                 <label for="nama_pegawai">Bukti Tidak Hadir:</label>
                                 <a data-fancybox="gallery">
                                     <img src="{{ url('storage/' . $presensi->image)}}" class="card-img-top" width="600px" height="600px" id="x-2" alt="">
                                 </a>
+                                @endif
                             </div>
-                            <a href="{{ route('presensi.index') }}" class="btn btn-primary">Back</a>
+                            <a href="{{ route('presensi.create') }}" class="btn btn-primary">create</a>
+                            <a href="{{ route('presensi.index') }}" class="btn btn-dark">Back</a>
                         </div>
                     </div>
                   

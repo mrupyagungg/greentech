@@ -78,7 +78,10 @@
                                     <td style="text-align: center">
                                         <!-- Tombol untuk menampilkan detail, edit, dan hapus -->
                                         <a class="btn btn-primary" href="{{ route('presensi.show',$pres->id) }}"><i class="fas fa-eye"></i></a>
-                                        <a class="btn btn-success" href="{{ route('presensi.edit',$pres->id) }}"><i class="fas fa-edit"></i></a>
+                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModal{{ $pres->id }}">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        
                                         <button class="btn btn-danger" onclick="confirmDelete('{{ $pres->id }}', '{{ $pres->nama_pegawai }}')"> <i class="fas fa-trash"></i></button>
                                     </td>
                                 </tr>
@@ -92,31 +95,47 @@
         </div>
     </div>
 </div>
+@foreach ($presensi as $pres)
+    <!-- Modal -->
+    <div class="modal fade" id="editModal{{ $pres->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel{{ $pres->id }}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!-- Konten modal di sini -->
+    <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Data Presensi</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <!-- Isi formulir edit di sini -->
+        <form action="{{ route('presensi.update', $pres->id) }}" method="post">
+            @csrf
+            @method('PUT')
+            <!-- Tambahkan input fields atau informasi yang ingin Anda edit -->
+            <select class="form-control" id="nama_pegawai" name="nama_pegawai" required>
+                <option value="">Pilih Pegawai...</option>
+                @foreach ($pegawai as $p)
+                    <option value="{{ $p->nama_pegawai }}">{{ $p->nama_pegawai }}</option>
+                @endforeach
+            </select>
+            <!-- Tambahkan input fields atau informasi lainnya sesuai kebutuhan -->
+            <button type="submit" class="btn btn-primary">Simpan</button>
+        </form>
+    </div>
+    <!-- Tambahan konten modal jika diperlukan -->
+</div>
 
-<!-- Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Konfirmasi Penghapusan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Apakah Anda yakin ingin menghapus data ini?
-            </div>
-            <div class="modal-footer">
-                <a href="{{ route('presensi.index') }}" class="btn btn-dark">Back</a>
-                <form id="deleteForm" method="POST" action="">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Hapus</button>
-                </form>
             </div>
         </div>
     </div>
-</div>
+
+    <!-- Tombol Edit -->
+    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModal{{ $pres->id }}">
+        <i class="fas fa-edit"></i>
+    </button>
+@endforeach
+
 <script>
     function confirmDelete(id, nama) {
         var form = document.getElementById('deleteForm');

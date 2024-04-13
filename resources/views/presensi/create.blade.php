@@ -6,7 +6,7 @@
     <div class="body-wrapper">
     
         <div class="container-fluid">
-            <div class="card">
+            <div class="card  mx-auto" style="max-width: 600px;">
                 <div class="card-body">
                     <h5 class="card-title fw-semibold mb-4">Data presensi</h5>
 

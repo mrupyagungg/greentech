@@ -7,6 +7,7 @@ use App\Models\Presensi;
 use App\Models\PegawaiModel;
 use App\Http\Requests\StorePresensiRequest;
 use App\Http\Requests\UpdatePresensiRequest;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PresensiController extends Controller
 {
@@ -18,10 +19,13 @@ class PresensiController extends Controller
     public function index()
     {
         $presensi = Presensi::all(); // Gunakan nama model dengan benar
+        $pegawai = PegawaiModel::all();
 
         return view('presensi.index', [
-            'presensi' => $presensi
+            'presensi' => $presensi,
+            'pegawai' => $pegawai,
         ]);
+
     }
 
     /**
@@ -92,28 +96,49 @@ class PresensiController extends Controller
         return view('presensi.show', compact('presensi'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Presensi  $presensi
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Presensi $presensi)
+    public function edit($id)
     {
-        //
+        // Menemukan data presensi berdasarkan ID
+        $presensi = Presensi::findOrFail($id);
+    
+        // Mengambil data pegawai untuk ditampilkan sebagai pilihan dalam dropdown
+        $pegawai = PegawaiModel::all();
+    
+        // Menampilkan halaman form edit presensi beserta data yang akan diedit
+        return view('presensi.edit', compact('presensi', 'pegawai'));
     }
+    
+    
+    public function update(UpdatePresensiRequest $request, $id)
+{
+    // Menemukan data presensi berdasarkan ID
+    $presensi = Presensi::findOrFail($id);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdatePresensiRequest  $request
-     * @param  \App\Models\Presensi  $presensi
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdatePresensiRequest $request, Presensi $presensi)
-    {
-        //
+    // Validasi request
+    $request->validate([
+        'nama_pegawai' => 'required|string',
+    ]);
+
+    try {
+        // Mengambil data pegawai berdasarkan nama yang baru
+        $pegawai = PegawaiModel::where('nama_pegawai', $request->nama_pegawai)->first();
+
+        // Jika pegawai ditemukan, update nama presensi
+        if ($pegawai) {
+            $presensi->nama_pegawai = $request->nama_pegawai;
+            $presensi->save();
+
+            // Redirect ke halaman index presensi dengan pesan sukses
+            return redirect()->route('presensi.index')->with('success', 'Data presensi berhasil diperbarui');
+        } else {
+            throw new ModelNotFoundException();
+        }
+    } catch (ModelNotFoundException $exception) {
+        // Jika pegawai tidak ditemukan, lempar pengecualian dan tangkapnya
+        return redirect()->back()->with('error', 'Pegawai tidak ditemukan');
     }
+}
+
 
     /**
      * Remove the specified resource from storage.
