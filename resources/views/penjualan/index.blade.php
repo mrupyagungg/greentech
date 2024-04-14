@@ -135,8 +135,8 @@ $(document).ready(function () {
                         </div>    
             
                         <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>                            
                         </div>
                     </div>
                 </div>
