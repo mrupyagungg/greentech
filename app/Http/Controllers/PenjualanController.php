@@ -5,7 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Barang;
 use App\Models\Penjualans;
+use App\Http\Requests\StorePenjualanRequest;
+use App\Http\Requests\UpdatePenjualanRequest;
 
+// untuk validator
+use Illuminate\Support\Facades\Validator; 
+use Illuminate\Support\Facades\Auth; //untuk mendapatkan auth
 
 class PenjualanController extends Controller
 {
@@ -31,7 +36,16 @@ class PenjualanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validasi input
+        $request->validate([
+            'jumlah' => 'required|integer|min:1',
+        ]);
+
+        // Proses penyimpanan data ke dalam keranjang
+        // Tambahkan logika sesuai dengan kebutuhan aplikasi Anda
+
+        // Setelah berhasil, kembalikan respons
+        return response()->json(['sukses' => 'Barang berhasil ditambahkan ke keranjang.']);
     }
 
     /**
@@ -42,7 +56,8 @@ class PenjualanController extends Controller
      */
     public function show($id)
     {
-        //
+        $barang = Barang::findOrFail($id);
+        return response()->json(['barang' => $barang]);
     }
 
     /**
@@ -81,7 +96,7 @@ class PenjualanController extends Controller
     public function showKeranjang()
     {
         // Fetch all records from the Penjualan table
-        $keranjang = Penjualan::all();
+        $keranjang = Penjualans::all();
     
         // Pass $keranjang data to the view
         return view('penjualan/keranjang', compact('keranjang'));
