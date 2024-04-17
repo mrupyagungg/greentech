@@ -1,4 +1,4 @@
-@extends('layoutbootstrap')
+@extends('layoutadmin')
 
 @section('konten')
 

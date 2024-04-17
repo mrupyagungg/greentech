@@ -29,13 +29,13 @@ h5 {
                 <div class="row">
                     <h5 class="card-title fw-semibold">Penjualan </h5>
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <a href="{{url('/penjualan/status')}}" class="btn btn-dark btn-icon-split">
+                        <a href="{{url('/penjualan/viewstatus')}}" class="btn btn-dark btn-icon-split">
                             <span class="icon text-white-50">
                                 <i class="ti ti-clock"></i>
                             </span>
                             <span class="text"> Lihat Status Pemesanan</span>
                         </a>
-                        <a href="{{ url('/penjualan/keranjang') }}" class="btn btn-success btn-icon-split">
+                        <a href="{{ url('keranjang') }}" class="btn btn-success btn-icon-split">
                             <span class="icon text-white-50">
                                 <i class="ti ti-shopping-cart"></i>
                             </span>
@@ -66,7 +66,7 @@ h5 {
                                                     <i class="fas fa-box-open"></i>&nbsp;&nbsp;Stok : <b id="xstok-{{$p->id}}">{{ $p->stok_tersedia }}</b><br><br>
                                                     <i class="fas fa-window-restore"></i>&nbsp;&nbsp;Kategori : <b id="kategori_barang-{{$p->id}}">{{ $p->kategori }}</b><br><br>
                                                     <i class="fas fa-coins"></i>&nbsp;&nbsp;Rp {{$p->harga_jual}} <br><br>
-                                                    <button type="button" class="btn btn-primary btn-icon-split tampilmodaltambah" data-toggle="modal" data-target="#tambahKeranjangModal" data-id="{{ $p->id }}">
+                                                    <button type="button" class="btn btn-primary btn-icon-split tampilmodaltambah" data-toggle="modal" data-target="#tambahKeranjangModal{{ $p->id }}" data-id="{{ $p->id }}">
                                                         <span class="icon text-white-50">
                                                             <i class="fa fa-shopping-cart"></i>
                                                         </span>
@@ -81,6 +81,51 @@ h5 {
                             </div>
                         </div>
                     </div> 
+                    <div class="modal fade" id="tambahKeranjangModal{{ $p->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Tambah ke Keranjang</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Form untuk input -->
+                                            <form action="{{ 'penjualan.keranjang' }}" class="formpenjualan" method="POST">
+                                            @csrf
+                                            <input type="hidden" id="idbaranghidden" name="idbaranghidden" value="">
+                                            <input type="hidden" id="tipeproses" name="tipeproses" value="">
+                                            <input type="hidden" id="id_barang" name="id_barang" value="{{ $p->id_barang}}">
+                                
+                                            <div class="mb-3 row">
+                                                <label for="nomerlabel" class="col-sm-4 col-form-label">Nama Barang</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="nama_barang" name="nama_barang" value="{{ $p->nama_barang }}" readonly>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 row">
+                                                <label for="lantailabel" class="col-sm-4 col-form-label">Harga Barang</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="harga_jual" name="harga_jual" value="{{ $p->harga_jual }}" readonly> 
+                                                </div>
+                                            </div>
+                                                <div class="mb-3 row">
+                                                    <label for="hargalabel" class="col-sm-4 col-form-label">Jumlah</label>
+                                                    <div class="col-sm-8">
+                                                        <input type="number" class="form-control" id="jumlah" name="jumlah" min=1>
+                                                        <div class="invalid-feedback errorjumlah"></div>
+                                                    </div>
+                                                </div>
+                                            </div>    
+                                
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+                                                <button type="submit" class="btn btn-primary">Submit</button>                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                     @endforeach
                 </div>
             </div>
@@ -97,51 +142,6 @@ $(document).ready(function () {
     });
 });
 </script>
-<div class="modal fade" id="tambahKeranjangModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah ke Keranjang</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Form untuk input -->
-                        <form action="{{ 'penjualan.keranjang' }}" class="formpenjualan" method="POST">
-                        @csrf
-                        <input type="hidden" id="idbaranghidden" name="idbaranghidden" value="">
-                        <input type="hidden" id="tipeproses" name="tipeproses" value="">
-            
-                        <div class="mb-3 row">
-                            <label for="nomerlabel" class="col-sm-4 col-form-label">Nama Barang</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="nama_barang" name="nama_barang" value="{{ $p->nama_barang }}" readonly>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
-                            <label for="lantailabel" class="col-sm-4 col-form-label">Harga Barang</label>
-                            <div class="col-sm-8">
-                                <input type="text" class="form-control" id="harga_jual" name="harga_jual" value="{{ $p->harga_jual }}" readonly> 
-                            </div>
-                        </div>
-                            <div class="mb-3 row">
-                                <label for="hargalabel" class="col-sm-4 col-form-label">Jumlah</label>
-                                <div class="col-sm-8">
-                                    <input type="number" class="form-control" id="jumlah" name="jumlah" min=1>
-                                    <div class="invalid-feedback errorjumlah"></div>
-                                </div>
-                            </div>
-                        </div>    
-            
-                        <div class="modal-footer">
-                            <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <script>
 

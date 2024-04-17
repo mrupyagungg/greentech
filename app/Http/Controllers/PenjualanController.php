@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Barang;
 use App\Models\Penjualans;
 use App\Http\Requests\StorePenjualanRequest;
+use App\Http\Requests\Keranjang;
 use App\Http\Requests\UpdatePenjualanRequest;
+use App\Http\Requests\TambahKeKeranjangRequest;
+
 
 // untuk validator
 use Illuminate\Support\Facades\Validator; 
@@ -34,18 +37,61 @@ class PenjualanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePenjualanRequest $request)
     {
-        // Validasi input
-        $request->validate([
-            'jumlah' => 'required|integer|min:1',
-        ]);
+        //digunakan untuk validasi kemudian kalau ok tidak ada masalah baru disimpan ke db
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'jumlah' => 'required',
+            ]
+        );
+        
+        if($validator->fails()){
+            // gagal
+            return response()->json(
+                [
+                    'status' => 400,
+                    'errors' => $validator->messages(),
+                ]
+            );
+        }else{
+            // berhasil
 
-        // Proses penyimpanan data ke dalam keranjang
-        // Tambahkan logika sesuai dengan kebutuhan aplikasi Anda
+            // cek apakah tipenya input atau update
+            // input => tipeproses isinya adalah tambah
+            // update => tipeproses isinya adalah ubah
+            
+            if($request->input('tipeproses')=='tambah'){
 
-        // Setelah berhasil, kembalikan respons
-        return response()->json(['sukses' => 'Barang berhasil ditambahkan ke keranjang.']);
+                $id_customer = Auth::id();
+                $jml_barang = $request->input('jumlah');
+                $id_barang = $request->input('id_barang');
+
+                $brg = Penjualans::getBarangId($id_barang);
+                foreach($brg as $b):
+                    $harga_jual = $b->harga;
+                endforeach;
+
+                $total_harga = $harga_jual*$jml_barang;
+                Penjualans::inputPenjualan($id_customer,$total_harga,$id_barang,$jml_barang,$harga_jual,$total_harga);
+
+                return response()->json(
+                    [
+                        'status' => 200,
+                        'message' => 'Sukses Input Data'
+                    ]
+                );
+            }
+        }
+    }
+
+    public function tambahKeKeranjang(TambahKeKeranjangRequest $request)
+    {
+        // Jika validasi berhasil, kode selanjutnya akan dieksekusi
+        // Jika validasi gagal, pengguna akan diarahkan kembali dengan pesan kesalahan
+        
+        // Logika untuk menambah barang ke dalam keranjang
     }
 
     /**
@@ -82,44 +128,59 @@ class PenjualanController extends Controller
     {
         //
     }
-    public function keranjang()
-    {
-        $keranjang = Penjualans::all();
-        // Di sini Anda dapat menuliskan logika untuk menampilkan keranjang belanja
-        // Misalnya, mengambil data dari tabel keranjang dan melewatkan ke tampilan
-        
-        // Kemudian, Anda akan mengembalikan tampilan keranjang
-        return view('penjualan/keranjang', ['keranjang' => $keranjang]);
-
+    
+     // view keranjang
+     public function keranjang(){
+        $id_customer = Auth::id();
+        $keranjang = Penjualans::viewKeranjang($id_customer);
+        return view('penjualan/viewkeranjang',
+                [
+                    'keranjang' => $keranjang
+                ]
+        );
     }
 
-    public function showKeranjang()
-    {
-        // Fetch all records from the Penjualan table
-        $keranjang = Penjualans::all();
-    
-        // Pass $keranjang data to the view
-        return view('penjualan/keranjang', compact('keranjang'));
+    // view status
+    public function viewstatus(){
+        $id_customer = Auth::id();
+        // dapatkan id ke berapa dari status pemesanan
+        $id_status_pemesanan = Penjualans::getIdStatus($id_customer);
+        $status_pemesanan = Penjualans::getStatusAll($id_customer);
+        return view('penjualan.viewstatus',
+                [
+                    'status_pemesanan' => $status_pemesanan,
+                    'id_status_pemesanan'=> $id_status_pemesanan
+                ]
+        );
+    } 
+
+    // view keranjang
+    public function keranjangjson(){
+        $id_customer = Auth::id();
+        $keranjang = Penjualans::viewKeranjang($id_customer);
+        if($keranjang)
+        {
+            return response()->json([
+                'status'=>200,
+                'keranjang'=> $keranjang,
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status'=>404,
+                'message'=>'Tidak ada data ditemukan.'
+            ]);
+        }
     }
-    
-    public function tambahKeKeranjang(Request $request)
-    {
-        // Validasi data yang diterima dari form
-        $validatedData = $request->validate([
-            'nama_barang' => 'required',
-            'harga_jual' => 'required|numeric|min:0',
-            'jumlah' => 'required|integer|min:1',
-        ]);
 
-        // Simpan data ke dalam keranjang (atau database)
-        $keranjang = new Keranjang();
-        $keranjang->nama_barang = $validatedData['nama_barang'];
-        $keranjang->harga_jual = $validatedData['harga_jual'];
-        $keranjang->jumlah = $validatedData['jumlah'];
-        $keranjang->save();
+    // view keranjang
+    public function checkout(){
+        $id_customer = Auth::id();
+        Penjualans::checkout($id_customer); //proses cekout
+        $barangs = Penjualans::getBarang();
 
-        // Redirect kembali ke halaman sebelumnya dengan pesan sukses
-        return redirect('penjualan.keranjang');
+        return redirect('penjualan/status');
     }
 
 
