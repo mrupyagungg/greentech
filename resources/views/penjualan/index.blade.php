@@ -43,7 +43,7 @@ h5 {
                         </a>
                     </div>
 
-                    @foreach ($barangs as $p)
+                    @foreach ($barang as $p)
                     <div class="col-lg-6">
                         <div class="card shadow mb-8">
                             <a href="#collapseCardExample{{$p->id}}" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample{{$p->id}}">
@@ -120,7 +120,9 @@ h5 {
                                             </div>    
                                 
                                             <div class="modal-footer">
-                                                <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+                                                <a href="">
+                                                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+                                                </a>
                                                 <button type="submit" class="btn btn-primary">Submit</button>                            
                                             </div>
                                         </div>

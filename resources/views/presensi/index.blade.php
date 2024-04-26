@@ -78,9 +78,9 @@
                                     <td style="text-align: center">
                                         <!-- Tombol untuk menampilkan detail, edit, dan hapus -->
                                         <a class="btn btn-primary" href="{{ route('presensi.show',$pres->id) }}"><i class="fas fa-eye"></i></a>
-                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModal{{ $pres->id }}">
+                                        {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModal{{ $pres->id }}">
                                             <i class="fas fa-edit"></i>
-                                        </button>
+                                        </button> --}}
                                         
                                         <button class="btn btn-danger" onclick="confirmDelete('{{ $pres->id }}', '{{ $pres->nama_pegawai }}')"> <i class="fas fa-trash"></i></button>
                                     </td>
@@ -118,7 +118,7 @@
                 @foreach ($pegawai as $p)
                     <option value="{{ $p->nama_pegawai }}">{{ $p->nama_pegawai }}</option>
                 @endforeach
-            </select>
+            </select><br>
             <!-- Tambahkan input fields atau informasi lainnya sesuai kebutuhan -->
             <button type="submit" class="btn btn-primary">Simpan</button>
         </form>

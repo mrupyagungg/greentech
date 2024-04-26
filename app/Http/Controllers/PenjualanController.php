@@ -26,9 +26,13 @@ class PenjualanController extends Controller
     {
          // Ambil data barang dari database
          $barangs = Barang::all();
-
+         $id_customer = Auth::id();    
          // Kirim data barang ke view penjualan
-         return view('penjualan.index', compact('barangs'));
+         return view('penjualan.index', [
+            'barang' => $barangs,
+                     'jml' => Penjualans::getJmlBarang($id_customer),
+                     'jml_invoice' => Penjualans::getJmlInvoice($id_customer),
+         ]);
     }
 
     /**
@@ -102,8 +106,8 @@ class PenjualanController extends Controller
      */
     public function show($id)
     {
-        $barang = Barang::findOrFail($id);
-        return response()->json(['barang' => $barang]);
+        $barangs = Barang::findOrFail($id);
+        return response()->json(['barang' => $barangs]);
     }
 
     /**

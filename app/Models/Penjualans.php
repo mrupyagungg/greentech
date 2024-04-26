@@ -377,7 +377,79 @@ class Penjualans extends Model
     
         return $stok;
     }
-    
 
+    // untuk menghapus data penjualan detail
+    public static function hapuspenjualandetail($id_penjualan_detail){
+        // dapatkan nomor transaksi dulu
+        $sql = "SELECT  no_transaksi
+                FROM penjualan_detail
+                WHERE id = ? ";
+        $transaksi = DB::select($sql,[$id_penjualan_detail]);
+        foreach($transaksi as $b):
+            $no = $b->no_transaksi;
+        endforeach;
+
+        // hapus datanya
+        $sql = "DELETE FROM penjualan_detail WHERE id = ?";
+        $nrd = DB::delete($sql,[$id_penjualan_detail]);
+
+        
+        // hitung total harga dari jml di penjualan detail
+        $sql = "SELECT  SUM(total) as ttl
+                FROM penjualan_detail
+                WHERE no_transaksi = ? ";
+        $total = DB::select($sql,[$no]);
+        foreach($total as $b):
+            $ttl = $b->ttl;
+        endforeach;
+        
+        // update total harga di tabel penjualan
+        $affected = DB::table('penjualan')
+          ->where('no_transaksi', $no)
+          ->update(['total_harga' => $ttl]);
+    }
+    
+    // kembalikan stok
+    public static function kembalikanstok($id_penjualan_detail){
+        $penjualan = new Penjualan;
+        $sql = "SELECT jml_barang,id_barang FROM penjualan_detail WHERE id = ?";
+        $barangs = DB::select($sql,[$id_penjualan_detail]);
+        foreach($barangs as $b):
+            $jml_barang = $b->jml_barang;
+            $id_barang = $b->id_barang;
+        endforeach;
+
+        $stok = $penjualan->getStock($id_barang);
+        $stok_akhir = $stok + $jml_barang;
+        $affected = DB::table('barang')
+          ->where('id', $id_barang)
+          ->update(['stok' => $stok_akhir]);
+    }
+    
+    
+    // dapatkan jumlah barang
+    public static function getJmlBarang($id_customer){
+        $sql = "SELECT count(*) as jml FROM penjualan_detail 
+                WHERE no_transaksi IN 
+                (SELECT no_transaksi FROM penjualan 
+                 WHERE id_customer = ? AND status 
+                 NOT IN ('expired','hapus','siap_bayar','konfirmasi_bayar','selesai')
+                )";
+        $barangs = DB::select($sql,[$id_customer]);
+        foreach($barangs as $b):
+            $jml = $b->jml;
+        endforeach;
+        return $jml;
+    }
+
+    public static function getJmlInvoice($id_customer){
+        $sql = "SELECT count(*) as jml FROM penjualan 
+                WHERE status = 'siap_bayar' AND id_customer = ?";
+        $barangs = DB::select($sql,[$id_customer]);
+        foreach($barangs as $b):
+            $jml = $b->jml;
+        endforeach;
+        return $jml;
+    }
 
 }
