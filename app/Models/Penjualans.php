@@ -451,5 +451,4 @@ class Penjualans extends Model
         endforeach;
         return $jml;
     }
-
 }

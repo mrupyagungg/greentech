@@ -112,21 +112,22 @@ Route::delete('/barang/destroy/{barang}', [BarangController::class, 'destroy'])-
 Route::post('/barang/create', [BarangController::class, 'store']);
 Route::delete('/barang/{id}', 'BarangController@destroy')->name('barang.destroy');
 
-// untuk transaksi penjualan
-Route::get('penjualan/barang/{id}', [App\Http\Controllers\PenjualanController::class,'getDataBarang'])->middleware(['auth']);
-Route::get('penjualan/keranjang', [App\Http\Controllers\PenjualanController::class,'keranjang'])->middleware(['auth']);
-Route::get('penjualan/destroypenjualandetail/{id}', [App\Http\Controllers\PenjualanController::class,'destroypenjualandetail'])->middleware(['auth']);
-Route::get('penjualan/barang', [App\Http\Controllers\PenjualanController::class,'getDataBarangAll'])->middleware(['auth']);
-Route::get('penjualan/jmlbarang', [App\Http\Controllers\PenjualanController::class,'getJumlahBarang'])->middleware(['auth']);
-Route::get('penjualan/keranjangjson', [App\Http\Controllers\PenjualanController::class,'keranjangjson'])->middleware(['auth']);
-Route::get('penjualan/checkout', [App\Http\Controllers\PenjualanController::class,'checkout'])->middleware(['auth']);
-Route::get('penjualan/invoice', [App\Http\Controllers\PenjualanController::class,'invoice'])->middleware(['auth']);
-Route::get('penjualan/jmlinvoice', [App\Http\Controllers\PenjualanController::class,'getInvoice'])->middleware(['auth']);
-Route::get('penjualan/status', [App\Http\Controllers\PenjualanController::class,'viewstatus'])->middleware(['auth']);
-Route::resource('penjualan', PenjualanController::class)->middleware(['auth']);
-Route::get('/keranjang', [PenjualanController::class, 'keranjang'])->name('keranjang');
-Route::post('/keranjang/tambah', [PenjualanController::class, 'tambahKeKeranjang'])->name('keranjang.tambah');
-Route::get('penjualan/keranjang', [PenjualanController::class, 'tambahKeKeranjang'])->name('tambah.kekeranjang');
+// Route untuk master data penjualan
+Route::get('penjualan/barang/{id}', [\App\Http\Controllers\PenjualanController::class,'getDataBarang'])->middleware(['auth']);
+Route::get('penjualan/keranjang', [\App\Http\Controllers\PenjualanController::class,'keranjang'])->middleware(['auth']);
+Route::get('penjualan/destroypenjualandetail/{id}', [\App\Http\Controllers\PenjualanController::class,'destroypenjualandetail'])->middleware(['auth']);
+Route::get('penjualan/barang', [\App\Http\Controllers\PenjualanController::class,'getDataBarangAll'])->middleware(['auth']);
+Route::get('penjualan/jmlbarang', [\App\Http\Controllers\PenjualanController::class,'getJumlahBarang'])->middleware(['auth']);
+Route::get('penjualan/keranjangjson', [\App\Http\Controllers\PenjualanController::class,'keranjangjson'])->middleware(['auth']);
+Route::get('penjualan/checkout', [\App\Http\Controllers\PenjualanController::class,'checkout'])->middleware(['auth']);
+Route::get('penjualan/invoice', [\App\Http\Controllers\PenjualanController::class,'invoice'])->middleware(['auth']);
+Route::get('penjualan/jmlinvoice', [\App\Http\Controllers\PenjualanController::class,'getInvoice'])->middleware(['auth']);
+Route::get('penjualan/status', [\App\Http\Controllers\PenjualanController::class,'viewstatus'])->middleware(['auth']);
+Route::resource('penjualan', \App\Http\Controllers\PenjualanController::class)->middleware(['auth']);
+Route::get('/keranjang', [\App\Http\Controllers\PenjualanController::class, 'keranjang'])->name('keranjang');
+Route::post('/keranjang/tambah', [\App\Http\Controllers\PenjualanController::class, 'tambahKeKeranjang'])->name('keranjang.tambah');
+Route::get('penjualan/tambahkekeranjang', [\App\Http\Controllers\PenjualanController::class, 'tambahKeKeranjang'])->name('tambah.kekeranjang');
+
 
 Route::get('/artikel',[ArticleController::class,'index'])->name('artikel.index');
 Route::post('/artikel',[ArticleController::class,'store'])->name('artikel.store');

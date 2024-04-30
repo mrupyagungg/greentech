@@ -12,16 +12,11 @@ use App\Http\Requests\TambahKeKeranjangRequest;
 
 
 // untuk validator
-use Illuminate\Support\Facades\Validator; 
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth; //untuk mendapatkan auth
 
 class PenjualanController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
          // Ambil data barang dari database
@@ -30,28 +25,88 @@ class PenjualanController extends Controller
          // Kirim data barang ke view penjualan
          return view('penjualan.index', [
             'barang' => $barangs,
-                     'jml' => Penjualans::getJmlBarang($id_customer),
-                     'jml_invoice' => Penjualans::getJmlInvoice($id_customer),
+            'jml' => Penjualans::getJmlBarang($id_customer),
+            'jml_invoice' => Penjualans::getJmlInvoice($id_customer),
          ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function getDataBarang($id)
+    {
+        $barangs = Penjualans::getBarangId($id);
+        if ($barangs) {
+            return response()->json([
+                'status' => 200,
+                'barang' => $barangs,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Tidak ada data ditemukan.'
+            ]);
+        }
+    }
+
+    public function getDataBarangAll()
+    {
+        $barangs = Penjualans::getBarang();
+        if ($barangs) {
+            return response()->json([
+                'status' => 200,
+                'barang' => $barangs,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Tidak ada data ditemukan.'
+            ]);
+        }
+    }
+
+    public function getJumlahBarang()
+    {
+        $id_customer = Auth::id();
+        $jml_barang = Penjualans::getJmlBarang($id_customer);
+        if ($jml_barang) {
+            return response()->json([
+                'status' => 200,
+                'jumlah' => $jml_barang,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Tidak ada data ditemukan.'
+            ]);
+        }
+    }
+
+    public function getInvoice()
+    {
+        $id_customer = Auth::id();
+        $jml_barang = Penjualans::getJmlInvoice($id_customer);
+        if ($jml_barang) {
+            return response()->json([
+                'status' => 200,
+                'jmlinvoice' => $jml_barang,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => 'Tidak ada data ditemukan.'
+            ]);
+        }
+    }
+
     public function store(StorePenjualanRequest $request)
     {
         //digunakan untuk validasi kemudian kalau ok tidak ada masalah baru disimpan ke db
         $validator = Validator::make(
             $request->all(),
             [
-                'jumlah' => 'required',
+                'jumlah' => ''
             ]
         );
-        
-        if($validator->fails()){
+
+        if ($validator->fails()) {
             // gagal
             return response()->json(
                 [
@@ -59,26 +114,26 @@ class PenjualanController extends Controller
                     'errors' => $validator->messages(),
                 ]
             );
-        }else{
+        } else {
             // berhasil
 
             // cek apakah tipenya input atau update
             // input => tipeproses isinya adalah tambah
             // update => tipeproses isinya adalah ubah
-            
-            if($request->input('tipeproses')=='tambah'){
+
+            if ($request->input('tipeproses') == 'tambah') {
 
                 $id_customer = Auth::id();
                 $jml_barang = $request->input('jumlah');
                 $id_barang = $request->input('id_barang');
 
                 $brg = Penjualans::getBarangId($id_barang);
-                foreach($brg as $b):
+                foreach ($brg as $b) {
                     $harga_jual = $b->harga;
-                endforeach;
+                }
 
-                $total_harga = $harga_jual*$jml_barang;
-                Penjualans::inputPenjualan($id_customer,$total_harga,$id_barang,$jml_barang,$harga_jual,$total_harga);
+                $total_harga = $harga_jual * $jml_barang;
+                Penjualans::inputPenjualan($id_customer, $total_harga, $id_barang, $jml_barang, $harga_jual, $total_harga);
 
                 return response()->json(
                     [
@@ -90,102 +145,75 @@ class PenjualanController extends Controller
         }
     }
 
-    public function tambahKeKeranjang(TambahKeKeranjangRequest $request)
+    public function tambahKeKeranjang(Request $request)
     {
-        // Jika validasi berhasil, kode selanjutnya akan dieksekusi
-        // Jika validasi gagal, pengguna akan diarahkan kembali dengan pesan kesalahan
-        
-        // Logika untuk menambah barang ke dalam keranjang
+        // Validasi input
+        $validator = Validator::make($request->all(), [
+            'jumlah' => 'required|integer|min:1',
+            'id_barang' => 'required|exists:barang,id',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['status' => 400, 'errors' => $validator->errors()]);
+        }
+
+        // Proses penambahan ke keranjang disini
+        // Misalnya, menyimpan data ke database atau melakukan operasi lainnya
+
+        return response()->json(['status' => 200, 'sukses' => 'Barang berhasil ditambahkan ke keranjang.']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $barangs = Barang::findOrFail($id);
         return response()->json(['barang' => $barangs]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
     }
-    
-     // view keranjang
-     public function keranjang(){
+
+    public function keranjang()
+    {
         $id_customer = Auth::id();
         $keranjang = Penjualans::viewKeranjang($id_customer);
-        return view('penjualan/viewkeranjang',
-                [
-                    'keranjang' => $keranjang
-                ]
-        );
+        return view('penjualan.viewkeranjang', [
+            'keranjang' => $keranjang
+        ]);
     }
 
-    // view status
-    public function viewstatus(){
+    public function viewstatus()
+    {
         $id_customer = Auth::id();
         // dapatkan id ke berapa dari status pemesanan
         $id_status_pemesanan = Penjualans::getIdStatus($id_customer);
         $status_pemesanan = Penjualans::getStatusAll($id_customer);
-        return view('penjualan.viewstatus',
-                [
-                    'status_pemesanan' => $status_pemesanan,
-                    'id_status_pemesanan'=> $id_status_pemesanan
-                ]
-        );
-    } 
+        return view('penjualan.viewstatus', [
+            'status_pemesanan' => $status_pemesanan,
+            'id_status_pemesanan' => $id_status_pemesanan
+        ]);
+    }
 
-    // view keranjang
-    public function keranjangjson(){
+    public function keranjangjson()
+    {
         $id_customer = Auth::id();
         $keranjang = Penjualans::viewKeranjang($id_customer);
-        if($keranjang)
-        {
+        if ($keranjang) {
             return response()->json([
-                'status'=>200,
-                'keranjang'=> $keranjang,
+                'status' => 200,
+                'keranjang' => $keranjang,
             ]);
-        }
-        else
-        {
+        } else {
             return response()->json([
-                'status'=>404,
-                'message'=>'Tidak ada data ditemukan.'
+                'status' => 404,
+                'message' => 'Tidak ada data ditemukan.'
             ]);
         }
     }
-
-    // view keranjang
-    public function checkout(){
-        $id_customer = Auth::id();
-        Penjualans::checkout($id_customer); //proses cekout
-        $barangs = Penjualans::getBarang();
-
-        return redirect('penjualan/status');
-    }
-
-
 }
