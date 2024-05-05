@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Presensi extends Model
 {
     use HasFactory;
-
+  
     protected $table = 'presensi';
 
     // List of fillable columns

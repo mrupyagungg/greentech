@@ -11,7 +11,6 @@ use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\SupplierController;
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes

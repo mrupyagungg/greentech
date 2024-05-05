@@ -18,7 +18,7 @@
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     <style>
          body {
-            background-image: url('img/bg1.jpg');
+            background-image: url('img/bg3.jpg');
             background-size: cover;
             padding: 3rem;
         }   
