@@ -75,14 +75,6 @@ class SupplierController extends Controller
     {
         return view('supplier.show', compact('supplier'));
     }
-
-    // Implement the edit, update, and destroy methods as needed
-
-    /**
-     * Generate the next supplier code.
-     *
-     * @return string
-     */
     private function getKodeSupplier()
 {
     // Query kode supplier
@@ -99,9 +91,10 @@ class SupplierController extends Controller
 
     // Increment the numeric part and pad with leading zeros
     $nextNumericPart = $numericPart + 1;
-    $nextKodeSupplier = 'SUP-' . str_pad($nextNumericPart, 3, '0', STR_PAD_LEFT);
+    $nextKodeSupplier = 'SUP' . str_pad($nextNumericPart, 3, '0', STR_PAD_LEFT);
 
     return $nextKodeSupplier;
 }
+
 
 }

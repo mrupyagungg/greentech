@@ -13,7 +13,7 @@ class CreatePenjualansTable extends Migration
      */
     public function up()
     {
-        Schema::create('penjualans', function (Blueprint $table) {
+        Schema::create('penjualan', function (Blueprint $table) {
             $table->increments('id');
             $table->string('no_transaksi',7);
             $table->integer('id_customer');
@@ -21,6 +21,7 @@ class CreatePenjualansTable extends Migration
             $table->dateTime('tgl_expired', $precision = 0);
             $table->integer('total_harga');
             $table->string('status');
+            $table->timestamps();
         });
     }
 
@@ -31,6 +32,6 @@ class CreatePenjualansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('penjualans');
+        Schema::dropIfExists('penjualan');
     }
 }

@@ -21,23 +21,26 @@ class Supplier extends Model
         'ket',
     ];
 
-    public static function getKodeSupplier()
-{
-    // Get the latest supplier code
-    $latestSupplier = static::orderBy('kode_supplier', 'desc')->first();
-
-    // If there are no existing suppliers, start with SUP-001
-    if (!$latestSupplier) {
-        return 'SUP-001';
+    private function getKodeSupplier()
+    {
+        // Query kode supplier
+        $maxKodeSupplier = Supplier::max('kode_supplier');
+    
+        // If there are no existing suppliers, start with SUP-001
+        if (!$maxKodeSupplier) {
+            return 'SUP001';
+        }
+    
+        // Extract the numeric part of the code
+        preg_match('/\d+$/', $maxKodeSupplier, $matches);
+        $numericPart = (int)$matches[0];
+    
+        // Increment the numeric part and pad with leading zeros
+        $nextNumericPart = $numericPart + 1;
+        $nextKodeSupplier = 'SUP' . str_pad($nextNumericPart, 3, '0', STR_PAD_LEFT);
+    
+        return $nextKodeSupplier;
     }
-
-    // Extract the numeric part of the code and increment by 1
-    $numericPart = (int) substr($latestSupplier->kode_supplier, 3); // Skip 'SUP-'
-    $nextNumericPart = $numericPart + 1;
-
-    // Pad the numeric part with leading zeros and concatenate with 'SUP-'
-    return 'SUP-' . str_pad($nextNumericPart, 3, '0', STR_PAD_LEFT);
-}
-
+    
 
 }
