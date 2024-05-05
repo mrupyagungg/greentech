@@ -36,14 +36,6 @@
                     <span class="hide-menu">Masterdata</span>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ url('coa') }}" aria-expanded="false">
-                    <span>
-                        <i class="ti ti-table"></i>
-                    </span>
-                    <span class="hide-menu">Coa</span>
-                    </a>
-                 </li>
-                <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ url('pegawai') }}" aria-expanded="false">
                      <span>
                         <i class="ti ti-user"></i>
@@ -62,7 +54,7 @@
                 <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ url('barang') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-cards"></i>
+                        <i class="ti ti-package"></i>
                     </span>
                     <span class="hide-menu">Barang</span>
                     </a>
@@ -98,7 +90,7 @@
                 <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ url('pembelian') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-package"></i>
+                        <i class="ti ti-server"></i>
                     </span>
                     <span class="hide-menu">pembelian</span>
                     </a>
@@ -106,17 +98,9 @@
                 <li class="sidebar-item">
                 <a class="sidebar-link" href="{{ url('retur') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-clipboard"></i>
+                        <i class="ti ti-cards"></i>
                     </span>
                     <span class="hide-menu">retur pembelian</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url('perusahaan') }}" aria-expanded="false">
-                    <span>
-                        <i class="ti ti-calendar"></i>
-                    </span>
-                    <span class="hide-menu">penggajian</span>
                     </a>
                 </li>
                 <li class="nav-small-cap">

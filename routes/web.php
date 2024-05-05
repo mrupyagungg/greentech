@@ -8,6 +8,8 @@ use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PenjualanController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PresensiController;
+use App\Http\Controllers\ReturController;
+
 use App\Http\Controllers\SupplierController;
 
 
@@ -145,5 +147,14 @@ Route::resource('presensi', PresensiController::class);
 Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier.index');
 Route::post('/supplier', [SupplierController::class, 'store'])->name('supplier.store');
 Route::get('/supplier/create', [SupplierController::class, 'create'])->name('supplier.create');
+
+// retur
+Route::get('/retur', [ReturController::class, 'index'])->name('retur.index');
+Route::get('/retur/create', [ReturController::class, 'create'])->name('retur.create');
+Route::post('/retur',[ReturController::class,'store'])->name('retur.store');
+Route::delete('/retur/{retur}', [ReturController::class, 'destroy'])->name('retur.destroy');
+Route::get('/retur/{retur}/edit', [ReturController::class, 'edit'])->name('retur.edit');
+Route::delete('/retur/{retur}', [ReturController::class, 'destroy'])->name('retur.destroy');
+Route::put('/retur/{id}', [ReturController::class, 'update'])->name('retur.update');
 
 require __DIR__.'/auth.php';
