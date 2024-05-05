@@ -133,6 +133,7 @@ public function store(StorePenjualanRequest $request)
     // Validate the request
     $validator = Validator::make($request->all(), [
         'jumlah' => 'required|numeric|min:1', // Add numeric validation and minimum value of 1
+        'no_transaksi' => 'required|unique:penjualans',
     ]);
 
     // If validation fails

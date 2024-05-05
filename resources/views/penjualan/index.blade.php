@@ -94,39 +94,38 @@
                                 </div>
                                 <div class="modal-body">
                                     <!-- Form untuk input -->
-                                    <form action="{{ 'penjualan.keranjang' }}" class="formpenjualan" method="POST">
-                                    @csrf
-                                    <input type="hidden" id="idbaranghidden" name="idbaranghidden" value="">
-                                    <input type="hidden" id="tipeproses" name="tipeproses" value="">
-                                    {{-- <input type="hidden" id="id_barang" name="id_barang" value="{{ $p->id_barang}}"> --}}
-                        
-                                    <div class="mb-3 row">
-                                        <label for="nomerlabel" class="col-sm-4 col-form-label">Nama Barang</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="nama_barang" name="nama_barang" value="{{ $p->nama_barang }}" readonly>
+                                    <form id="formTambahKeranjang{{$p->id}}" action="{{ route('penjualan.keranjang') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" id="idbaranghidden" name="idbaranghidden" value="{{ $p->id }}">
+                                        <input type="hidden" id="tipeproses" name="tipeproses" value="tambah">
+                                        
+                                        <div class="mb-3 row">
+                                            <label for="nomerlabel" class="col-sm-4 col-form-label">Nama Barang</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="nama_barang" name="nama_barang" value="{{ $p->nama_barang }}" readonly>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="lantailabel" class="col-sm-4 col-form-label">Harga Barang</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="harga_jual" name="harga_jual" value="{{ number_format($p->harga_jual, 0, ',', '.') }}" readonly>
+                                        <div class="mb-3 row">
+                                            <label for="lantailabel" class="col-sm-4 col-form-label">Harga Barang</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" id="harga_jual" name="harga_jual" value="{{ number_format($p->harga_jual, 0, ',', '.') }}" readonly>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="mb-3 row">
-                                        <label for="hargalabel" class="col-sm-4 col-form-label">Jumlah</label>
-                                        <div class="col-sm-8">
-                                            <input type="number" class="form-control" id="jumlah" name="jumlah" min=1>
-                                            <div class="invalid-feedback errorjumlah"></div>
+                                        <div class="mb-3 row">
+                                            <label for="hargalabel" class="col-sm-4 col-form-label">Jumlah</label>
+                                            <div class="col-sm-8">
+                                                <input type="number" class="form-control" id="jumlah" name="jumlah" min="1">
+                                                <div class="invalid-feedback errorjumlah"></div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>    
-                                <div class="modal-footer">
-                                    <a href="">
-                                        <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
-                                    </a>
-                                    <button type="submit" class="btn btn-primary">Submit</button>                            
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Submit</button>                            
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>

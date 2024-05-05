@@ -456,8 +456,8 @@ public static function checkout($id_customer)
     public static function viewKeranjang($id_customer){
         $sql = "SELECT  a.no_transaksi,
                         c.nama_barang,
-                        c.foto,
-                        c.harga,
+                        c.image,
+                        c.harga_jual,
                         b.tgl_transaksi,
                         b.tgl_expired,
                         b.jml_barang,
@@ -467,7 +467,7 @@ public static function checkout($id_customer)
                 FROM penjualan a
                 JOIN penjualan_detail b
                 ON (a.no_transaksi=b.no_transaksi)
-                JOIN barang c 
+                JOIN barangs c 
                 ON (b.id_barang = c.id)
                 WHERE a.id_customer = ? AND a.status 
                 not in ('selesai','expired','siap_bayar','konfirmasi_bayar')";
@@ -481,7 +481,7 @@ public static function checkout($id_customer)
         $sql = "SELECT  a.no_transaksi,
                         c.nama_barang,
                         c.foto,
-                        c.harga,
+                        c.harga_jual,
                         b.tgl_transaksi,
                         b.tgl_expired,
                         b.jml_barang,
@@ -492,7 +492,7 @@ public static function checkout($id_customer)
                 FROM penjualan a
                 JOIN penjualan_detail b
                 ON (a.no_transaksi=b.no_transaksi)
-                JOIN barang c 
+                JOIN barangs c 
                 ON (b.id_barang = c.id)
                 WHERE a.id_customer = ? AND a.status 
                 in ('siap_bayar')";
@@ -505,7 +505,7 @@ public static function checkout($id_customer)
                 FROM penjualan a
                 JOIN penjualan_detail b
                 ON (a.no_transaksi=b.no_transaksi)
-                JOIN barang c 
+                JOIN barangs c 
                 ON (b.id_barang = c.id)
                 WHERE a.id_customer = ? AND a.status 
                 in ('siap_bayar')";
