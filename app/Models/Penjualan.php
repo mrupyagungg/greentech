@@ -20,7 +20,7 @@ class Penjualan extends Model
     public static function getBarang()
     {
         // query ke tabel barang
-        $sql = "SELECT * FROM barangs";
+        $sql = "SELECT * FROM barang";
         $barang = DB::select($sql);
         return $barang;
     }
@@ -28,7 +28,7 @@ class Penjualan extends Model
     // untuk melihat data barang berdasarkan id
     public static function getBarangId($id)
     {
-        $sql = "SELECT * FROM barangs WHERE id = ?";
+        $sql = "SELECT * FROM barang WHERE id = ?";
         $barang = DB::select($sql,[$id]);
         return $barang;
     }
@@ -42,71 +42,36 @@ class Penjualan extends Model
         return $penjualan;
     }
 
-    // Inside Penjualan model
-
-public static function getHargaJualById($id)
-{
-    // Logic to retrieve harga_jual from database based on $id
-    // Example:
-    $penjualan = Penjualan::where('id', $id)->first();
-    if ($penjualan) {
-        return $penjualan->harga_jual;
-    } else {
-        return null; // Or handle the case when the price is not found
-    }
-}
-
     // cekout
-public static function checkout($id_customer)
-{
-    // inisialisasi $no_transaksi
-    $no_transaksi = null;
+    public static function checkout($id_customer)
+    {
 
-    // dapatkan nomor transaksinya
-    $sql = "SELECT max(no_transaksi) as mak_no_transaksi 
-            FROM penjualan WHERE id_customer = ? AND status = 'pesan'";
-    $penjualan = DB::select($sql,[$id_customer]);
-
-    // Pastikan hasil query tidak kosong sebelum mengambil nilai $no_transaksi
-    if (!empty($penjualan)) {
+        // dapatkan nomor transaksinya
+        $sql = "SELECT max(no_transaksi) as mak_no_transaksi 
+                FROM penjualan WHERE id_customer = ? AND status = 'pesan'";
+        $penjualan = DB::select($sql,[$id_customer]);
         foreach($penjualan as $b):
             $no_transaksi = $b->mak_no_transaksi;
         endforeach;
 
-        if (!is_null($no_transaksi)) {
-            // update status menjadi siap bayar
-            $affected = DB::table('penjualan')
-                        ->where('no_transaksi', $no_transaksi)
-                        ->update(['status' => 'siap_bayar']);
-            
-            // simpan status transaksi
-            // tambahkan ke status transaksi
-            DB::table('status_transaksi')->insert([
-                'no_transaksi' => $no_transaksi,
-                'id_customer' => $id_customer,
-                'status' => 'siap_bayar',
-                'waktu' => now(),
-            ]);
+        // update status menjadi siap bayar
+        $affected = DB::table('penjualan')
+                    ->where('no_transaksi', $no_transaksi)
+                    ->update(['status' => 'siap_bayar']);
 
-            // Update tgl_expired jika mak_expired tidak null
-            if (!is_null($mak_expired)) {
-                $affected = DB::table('penjualan')
-                            ->where('no_transaksi', $no_transaksi)
-                            ->update(['tgl_expired' => $mak_expired]);
-            }
-        } else {
-            Log::info("Tidak ada nomor transaksi yang ditemukan untuk customer ID: $id_customer");
-        }
-    } else {
-        // Handle jika hasil query kosong
-        Log::info("Tidak ada transaksi yang sesuai dengan kriteria untuk customer ID: $id_customer");
+        // simpan status transaksi
+        // tambahkan ke status transaksi
+        DB::table('status_transaksi')->insert([
+            'no_transaksi' => $no_transaksi,
+            'id_customer' => $id_customer,
+            'status' => 'siap_bayar',
+            'waktu' => now(),
+        ]);
     }
-}
-
 
     // lihat stok barang
     public static function getStock($id_barang){
-        $sql = "SELECT stok FROM barangs WHERE id = ?";
+        $sql = "SELECT stok FROM barang WHERE id = ?";
         $barang = DB::select($sql,[$id_barang]);
         foreach($barang as $b):
             $stok = $b->stok;
@@ -177,7 +142,7 @@ public static function checkout($id_customer)
     }
 
     // prosedur input data penjualan 
-    public static function inputPenjualan($id_customer,$total_harga,$id_barang,$jml_barang,$harga_jual,$total){
+    public static function inputPenjualan($id_customer,$total_harga,$id_barang,$jml_barang,$harga_barang,$total){
         
         // instansiasi obyek
         $penjualan = new Penjualan;
@@ -193,7 +158,7 @@ public static function checkout($id_customer)
         endforeach;
 
         // jika jumlahnya 0 maka buat nomor transaksi baru
-        ['no_transaksi','id_customer','tgl_transaksi','tgl_expired','total_harga','status'];
+        // ['no_transaksi','id_customer','tgl_transaksi','tgl_expired','total_harga','status'];
         if($jml==0){
 
             // dapatkan nomor faktur terakhir cth format FK-0004
@@ -218,7 +183,7 @@ public static function checkout($id_customer)
             DB::table('penjualan_detail')->insert([
                 'no_transaksi' => $faktur,
                 'id_barang' => $id_barang,
-                'harga_jual' => $harga_jual,
+                'harga_barang' => $harga_barang,
                 'jml_barang' => $jml_barang,
                 'total' => $total,
                 'tgl_transaksi' => $date,
@@ -324,7 +289,7 @@ public static function checkout($id_customer)
                 DB::table('penjualan_detail')->insert([
                     'no_transaksi' => $faktur,
                     'id_barang' => $id_barang,
-                    'harga_jual' => $harga_jual,
+                    'harga_barang' => $harga_barang,
                     'jml_barang' => $jml_barang,
                     'total' => $total,
                     'tgl_transaksi' => $date,
@@ -374,7 +339,7 @@ public static function checkout($id_customer)
                     // tambahkan jml barangnya dan tamnbahkan masa expirednya
                     $date_plus_3=Date('Y-m-d H:i:s', strtotime('+3 days')); //tambahkan 3 hari untuk expired datenya
                     $jml_barang_akhir = $jml_barang + $jml_barang_tabel;
-                    $total_tagihan  = $harga_jual * $jml_barang_akhir;
+                    $total_tagihan  = $harga_barang * $jml_barang_akhir;
                     $affected = DB::table('penjualan_detail')
                     ->where('no_transaksi','=', $no_transaksi_tabel)
                     ->where('id_barang', '=',$id_barang_tabel)
@@ -430,7 +395,7 @@ public static function checkout($id_customer)
                     DB::table('penjualan_detail')->insert([
                         'no_transaksi' => $no_transaksi,
                         'id_barang' => $id_barang,
-                        'harga_jual' => $harga_jual,
+                        'harga_barang' => $harga_barang,
                         'jml_barang' => $jml_barang,
                         'total' => $total,
                         'tgl_transaksi' => $date,
@@ -456,8 +421,8 @@ public static function checkout($id_customer)
     public static function viewKeranjang($id_customer){
         $sql = "SELECT  a.no_transaksi,
                         c.nama_barang,
-                        c.image,
-                        c.harga_jual,
+                        c.foto,
+                        c.harga,
                         b.tgl_transaksi,
                         b.tgl_expired,
                         b.jml_barang,
@@ -467,7 +432,7 @@ public static function checkout($id_customer)
                 FROM penjualan a
                 JOIN penjualan_detail b
                 ON (a.no_transaksi=b.no_transaksi)
-                JOIN barangs c 
+                JOIN barang c 
                 ON (b.id_barang = c.id)
                 WHERE a.id_customer = ? AND a.status 
                 not in ('selesai','expired','siap_bayar','konfirmasi_bayar')";
@@ -481,7 +446,7 @@ public static function checkout($id_customer)
         $sql = "SELECT  a.no_transaksi,
                         c.nama_barang,
                         c.foto,
-                        c.harga_jual,
+                        c.harga,
                         b.tgl_transaksi,
                         b.tgl_expired,
                         b.jml_barang,
@@ -492,7 +457,7 @@ public static function checkout($id_customer)
                 FROM penjualan a
                 JOIN penjualan_detail b
                 ON (a.no_transaksi=b.no_transaksi)
-                JOIN barangs c 
+                JOIN barang c 
                 ON (b.id_barang = c.id)
                 WHERE a.id_customer = ? AND a.status 
                 in ('siap_bayar')";
@@ -505,7 +470,7 @@ public static function checkout($id_customer)
                 FROM penjualan a
                 JOIN penjualan_detail b
                 ON (a.no_transaksi=b.no_transaksi)
-                JOIN barangs c 
+                JOIN barang c 
                 ON (b.id_barang = c.id)
                 WHERE a.id_customer = ? AND a.status 
                 in ('siap_bayar')";

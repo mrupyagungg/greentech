@@ -105,16 +105,17 @@
                 </li>
                 <li class="nav-small-cap">
                     <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">laporan </span>
+                    <span class="hide-menu">Laporan</span>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="./icon-tabler.html" aria-expanded="false">
-                    <span>
-                        <i class="ti ti-mood-happy"></i>
-                    </span>
-                    <span class="hide-menu">Icons</span>
+                <div class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('laporanbulanan') }}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-file-text"></i>
+                        </span>
+                        <span class="hide-menu">Laporan Presensi</span>
                     </a>
-                </li>
+                </div>
+                               
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
                     <span>

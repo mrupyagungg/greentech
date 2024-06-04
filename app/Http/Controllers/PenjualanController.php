@@ -24,7 +24,7 @@ class PenjualanController extends Controller
          // getViewBarang()
          $barang = Penjualan::getBarang();
          $id_customer = Auth::id(); //dapatkan id customer dari sesi user
-         return view('penjualan.index',
+         return view('penjualan.view',
                  [
                      'barang' => $barang,
                      'jml' => Penjualan::getJmlBarang($id_customer),
@@ -127,48 +127,54 @@ class PenjualanController extends Controller
       * @param  \App\Http\Requests\StorePenjualanRequest  $request
       * @return \Illuminate\Http\Response
       */
-     
-public function store(StorePenjualanRequest $request)
-{
-    // Validate the request
-    $validator = Validator::make($request->all(), [
-        'jumlah' => 'required|numeric|min:1', // Add numeric validation and minimum value of 1
-        'no_transaksi' => 'required|unique:penjualans',
-    ]);
-
-    // If validation fails
-    if ($validator->fails()) {
-        return response()->json([
-            'status' => 400,
-            'errors' => $validator->messages(),
-        ]);
-    }
-
-    // If validation passes
-    $id_customer = Auth::id();
-    $jml_barang = $request->input('jumlah');
-    $id_barang = $request->input('idbaranghidden');
-
-    // Get the price of the product
-    $harga_jual = Penjualan::getHargaJualById($id_barang);
-
-    // Calculate total harga
-    $total_harga = $harga_jual * $jml_barang;
-
-    // Store the data in the database
-    Penjualan::create([
-        'id_customer' => $id_customer,
-        'total_harga' => $total_harga,
-        'id_barang' => $id_barang,
-        'jml_barang' => $jml_barang,
-        'harga_satuan' => $harga_jual,
-    ]);
-
-    return response()->json([
-        'status' => 200,
-        'message' => 'Sukses Input Data',
-    ]);
-}
+     public function store(StorePenjualanRequest $request)
+     {
+         //digunakan untuk validasi kemudian kalau ok tidak ada masalah baru disimpan ke db
+         $validator = Validator::make(
+             $request->all(),
+             [
+                 'jumlah' => 'required',
+             ]
+         );
+         
+         if($validator->fails()){
+             // gagal
+             return response()->json(
+                 [
+                     'status' => 400,
+                     'errors' => $validator->messages(),
+                 ]
+             );
+         }else{
+             // berhasil
+ 
+             // cek apakah tipenya input atau update
+             // input => tipeproses isinya adalah tambah
+             // update => tipeproses isinya adalah ubah
+             
+             if($request->input('tipeproses')=='tambah'){
+ 
+                 $id_customer = Auth::id();
+                 $jml_barang = $request->input('jumlah');
+                 $id_barang = $request->input('idbaranghidden');
+ 
+                 $brg = Penjualan::getBarangId($id_barang);
+                 foreach($brg as $b):
+                     $harga_jual_jual;
+                 endforeach;
+ 
+                 $total_harga = $harga_jual*$jml_barang;
+                 Penjualan::inputPenjualan($id_customer,$total_harga,$id_barang,$jml_barang,$harga_jual,$total_harga);
+ 
+                 return response()->json(
+                     [
+                         'status' => 200,
+                         'message' => 'Sukses Input Data',
+                     ]
+                 );
+             }
+         }
+     }
  
      /**
       * Display the specified resource.

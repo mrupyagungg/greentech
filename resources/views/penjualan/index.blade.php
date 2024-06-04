@@ -118,13 +118,14 @@
                                                 <div class="invalid-feedback errorjumlah"></div>
                                             </div>
                                         </div>
-
+                                
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                                             <button type="submit" class="btn btn-primary">Submit</button>                            
                                         </div>
                                     </form>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -165,53 +166,81 @@
         return s.join(dec)
         }
 
-      $(function(){
-            $('.tampilmodaltambah').on('click', function(){
-              // merubah label menjadi Tambah Data Kamar
-              $('#labelmodalubah').html('Tambah Data Belanja');
+        $(function(){
+        $('.tampilmodaltambah').on('click', function(){
+            $('#labelmodalubah').html('Tambah Data Belanja');
+            var id = $(this).data('id');
+            var url1 = "{{url('/penjualan/barang')}}";
+            var url2 = url1.concat("/",id);
+            url = "{{url('penjualan')}}";
+            $('.formpenjualan').attr('action',url);
+            $('#tipeproses').val('tambah');
 
-              var id = $(this).data('id');
-              var url1 = "{{url('/penjualan/barang')}}";
-              var url2 = url1.concat("/",id); //menggabungkan url dengan data nama file
-
-              url = "{{url('penjualan')}}";
-              $('.formpenjualan').attr('action',url);
-
-              $('#tipeproses').val('tambah'); //untuk identifikasi di controller apakah tambah atau update
-
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-
-              $('#ubahModal').modal('show');
-              
-              $.ajax(
-                {
-                  
-                    type: "get", //isinya put untuk update dan post untuk insert
-                    url: url2,
-                    // data: data,
-                    dataType: "json",
-                    success: function (response) {
-                        // console.log(response);
-                        $('#nama_barang').val(response.barang[0].nama_barang);
-                        $('#harga').val(number_format(response.barang[0].harga));
-                        $('#jumlah').attr(
-                            {
-                                'min':1,
-                                'max':response.barang[0].stok
-                            }
-                        );
-                        $('#idbaranghidden').val(response.barang[0].id);
-                    }
-
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
-              ); 
-
             });
-          }); 
+
+            $('#ubahModal').modal('show');
+            
+            $.ajax({
+                type: "get",
+                url: url2,
+                dataType: "json",
+                success: function (response) {
+                    $('#nama_barang').val(response.barang[0].nama_barang);
+                    $('#harga').val(number_format(response.barang[0].harga));
+                    $('#jumlah{{$p->id}}').attr({
+                        'min':1,
+                        'max':response.barang[0].stok
+                    });
+                    $('#idbaranghidden{{$p->id}}').val(response.barang[0].id);
+                }
+            });
+        });
+    });
+
+    $(document).ready(function(){   		
+        $('.formpenjualan').submit(function(e){
+            e.preventDefault();
+            const fd = new FormData(this);
+            $.ajax({
+                type: "post",
+                url: $(this).attr('action'),
+                data: fd,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response){
+                    if (response.status == 400) {
+                        if(response.errors.jumlah){
+                            $('#jumlah{{$p->id}}').removeClass('is-valid').addClass('is-invalid');
+                            $('.errorjumlah{{$p->id}}').html(response.errors.jumlah);
+                        } else {
+                            $('#jumlah{{$p->id}}').removeClass('is-invalid').addClass('is-valid');
+                            $('.errorjumlah{{$p->id}}').html('');
+                        }
+                    } else {
+                        Swal.fire({
+                            title: 'Berhasil!',
+                            text: response.sukses,
+                            icon: 'success',
+                            confirmButtonText: 'Ok'
+                        });
+                        $('#ubahModal').modal('hide');
+                        var id = $('#idbaranghidden{{$p->id}}').val();
+                        refreshstok();
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError){
+                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                } 
+            });
+            return false;
+        });
+    });
 </script>
 
 <!-- Ketika tombol submit di form ditekan -->
