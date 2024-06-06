@@ -1,27 +1,21 @@
-@extends('layouts.app')
+@extends('layoutadmin')
 
-@section('content')
+@section('konten')
     <div class="container">
-        <h1>Rekapitulasi Presensi</h1>
+        <h1>Laporan Presensi Bulanan</h1>
 
-        <form action="{{ route('laporan.viewrekapitulasi', ['periode' => '', 'id' => '']) }}" method="GET" class="mb-3">
+        <form action="{{ url('laporan.rekapitulasi', ['periode' => '']) }}" method="GET" class="mb-3">
+            @csrf
             <div class="form-row">
                 <div class="col">
                     <input type="month" name="periode" class="form-control">
                 </div>
                 <div class="col">
-                    <select name="id" class="form-control">
-                        @foreach ($pegawai as $p)
-                            <option value="{{ $p->id }}">{{ $p->nama_pegawai }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col">
-                    <button type="submit" class="btn btn-primary">Tampilkan Rekapitulasi</button>
+                    <button type="submit" class="btn btn-primary">Tampilkan Laporan</button>
                 </div>
             </div>
         </form>
-
+        
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -30,7 +24,8 @@
                     <th>Check-In</th>
                 </tr>
             </thead>
-            <tbody id="rekapitulasiData">
+            <tbody id="presensiData">
+                <th>    </th>
                 <!-- Data akan diisi melalui AJAX -->
             </tbody>
         </table>
@@ -40,11 +35,10 @@
         document.querySelector('form').addEventListener('submit', function(e) {
             e.preventDefault();
             const periode = document.querySelector('input[name="periode"]').value;
-            const id = document.querySelector('select[name="id"]').value;
-            fetch(`/presensi/viewrekapitulasi/${periode}/${id}`)
+            fetch(`/laporan/rakapitulasi/${periode}`)
                 .then(response => response.json())
                 .then(data => {
-                    let tableBody = document.getElementById('rekapitulasiData');
+                    let tableBody = document.getElementById('presensiData');
                     tableBody.innerHTML = '';
                     if (data.status === 200) {
                         data.presensi.forEach(item => {

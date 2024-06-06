@@ -170,6 +170,8 @@ Route::post('/pembelian', [PembelianController::class, 'store'])->name('pembelia
 
 // laporanpresensi
 
-Route::get('/laporanbulanan', [LaporanPresensi::class, 'laporanbulanan'])->name('laporanbulanan');
-Route::get('/laporanbulanan/{periode}', [LaporanPresensi::class, 'viewlaporanbulanan'])->name('laporan.viewlaporanbulanan');    
+Route::get('/laporan/rekapitulasi', [LaporanController::class, 'rekapitulasi'])->name('laporan.rekapitulasi');
+
+Route::get('laporan/laporanbulanan', [LaporanPresensi::class, 'laporanbulanan'])->name('laporanbulanan');
+Route::get('/laporan/bulanan/{periode}', [LaporanPresensi::class, 'viewlaporanbulanan'])->name('laporan.laporanbulanan');
 require __DIR__.'/auth.php';
