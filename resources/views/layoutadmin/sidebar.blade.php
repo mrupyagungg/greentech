@@ -4,125 +4,166 @@
         data-sidebar-position="fixed" data-header-position="fixed">
 
         <!-- Sidebar Start -->
-        <aside class="left-sidebar bg-gradient-white" id="accordionSidebar">
+        <aside class="left-sidebar" id="accordionSidebar" style="background-color: yellow">
             <!-- Sidebar scroll-->
             <div>
             <div class="brand-logo d-flex align-items-center justify-content-between">
                 <a href="./index.html" class="text-nowrap logo-img">
                 <img src="{{asset('img/logo1.png')}}" width="180" alt="" />
                 </a>
+
                 <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                 <i class="ti ti-x fs-8"></i>
                 </div>
             </div><hr>
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
-               
                 <ul id="sidebarnav">
-                <li class="nav-small-cap">
-                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">Home</span>
-                </li>
+                    <!-- Nama Pengguna dan Foto -->
+
+                    <li class="sidebar-item">
+                        <div class="user-profile text-center no-block dropdown m-t-20">
+                            <div class="user-pic">
+                                <img src="{{asset('images/profile/user-1.jpg')}}" alt="foto" width="90" height="90" class="img rounded-circle">
+                            </div>
+                            <div class="user-content hide-menu m-t-2">
+                            <a href="#" class="" id="Userdd" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                               <br> <h5 class="m-b-0 user-name font-medium">{{ Auth::user()->name }}</h5>
+                            </a>
+                                <span class="op-5 user-email">{{ Auth::user()->email }}</span>
+                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="Userdd">
+                                <a class="dropdown-item" href="team"></i> My Team</a>
+                                <div class="dropdown-divider"></div>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); this.closest('form').submit();">
+                                        <i class="ti-power-off m-r-5 m-l-5"></i> Logout
+                                    </a>
+                                </form>
+                            </div>
+                            </div>
+                        </div>
+                    </li>    
+                <hr style="border-color: black">
+                
+                <!-- End Nama Pengguna dan Foto -->
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ url('dashboard') }}" aria-expanded="false">
                     <span>
-                        <i class="ti ti-dashboard"></i>
+                        {{-- <i class="ti ti-dashboard"></i> --}}
                     </span>
-                    <span class="hide-menu">Dashboard</span>
+                    <span class="hide-menu"><b>Dashboard</b></span>
                     </a>
                 </li>
-                <li class="nav-small-cap">
-                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">Masterdata</span>
-                </li>
+                
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ url('pegawai') }}" aria-expanded="false">
-                     <span>
-                        <i class="ti ti-user"></i>
-                     </span>
-                        <span class="hide-menu">Pegawai</span>
-                     </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ url('pelanggan') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="#masterdata" data-bs-toggle="collapse" aria-expanded="false">
                         <span>
-                            <i class="ti ti-wallet"></i>
+                            {{-- <i class="ti ti-book"></i> --}}
                         </span>
-                        <span class="hide-menu">Pelanggan</span>
+                        <span class="hide-menu"><b>Masterdata</b></span>
+                        <span class="sidebar-dropdown-icon fas fa-chevron-down"></span>
                     </a>
+                    <ul class="sidebar-submenu collapse" id="masterdata">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ url('pegawai') }}">
+                                <span>
+                                    <i class="ti ti-user"></i> <!-- Icon untuk Pegawai -->
+                                </span>
+                                <span class="hide-menu">Pegawai</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ url('pelanggan') }}">
+                                <span>
+                                    <i class="ti ti-wallet"></i> <!-- Icon untuk Pelanggan -->
+                                </span>
+                                <span class="hide-menu">Pelanggan</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ url('barang') }}">
+                                <span>
+                                    <i class="ti ti-package"></i> <!-- Icon untuk Barang -->
+                                </span>
+                                <span class="hide-menu">Barang</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ url('supplier') }}">
+                                <span>
+                                    <i class="ti ti-building"></i> <!-- Icon untuk Supplier -->
+                                </span>
+                                <span class="hide-menu">Supplier</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
+                
                 <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url('barang') }}" aria-expanded="false">
-                    <span>
-                        <i class="ti ti-package"></i>
-                    </span>
-                    <span class="hide-menu">Barang</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url('supplier') }}" aria-expanded="false">
-                    <span>
-                        <i class="ti ti-building"></i>
-                    </span>
-                    <span class="hide-menu">Supplier</span>
-                    </a>
-                </li>
-                <li class="nav-small-cap">
-                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">Transaksi</span>
-                </li>
-                <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url('presensi') }}" aria-expanded="false">
-                    <span>
-                        <i class="ti ti-pin"></i>
-                    </span>
-                    <span class="hide-menu">presensi</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ url('penjualan') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="#transaksi" data-bs-toggle="collapse" aria-expanded="false">
                         <span>
-                            <i class="ti ti-shopping-cart"></i>
+                            {{-- <i class="ti ti-shopping-cart"></i> --}}
                         </span>
-                        <span class="hide-menu">penjualan</span>
+                        <span class="hide-menu"><b>Transaksi</b></span>
+                        <span class="sidebar-dropdown-icon fas fa-chevron-down"></span>
                     </a>
+                    <ul class="sidebar-submenu collapse" id="transaksi" style="padding-top: 10px;">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ url('presensi') }}">
+                                <span>
+                                    <i class="ti ti-pin"></i> <!-- Icon untuk Presensi -->
+                                </span>
+                                <span class="hide-menu">Presensi</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ url('penjualan') }}">
+                                <span>
+                                    <i class="ti ti-shopping-cart"></i> <!-- Icon untuk Penjualan -->
+                                </span>
+                                <span class="hide-menu">Penjualan</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ url('pembelian') }}">
+                                <span>
+                                    <i class="ti ti-server"></i> <!-- Icon untuk Pembelian -->
+                                </span>
+                                <span class="hide-menu">Pembelian</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ url('retur') }}">
+                                <span>
+                                    <i class="ti ti-cards"></i> <!-- Icon untuk Retur Pembelian -->
+                                </span>
+                                <span class="hide-menu">Retur Pembelian</span>
+                            </a>
+                        </li>
+                    </ul>
+                    
                 </li>
+                
                 <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url('pembelian') }}" aria-expanded="false">
-                    <span>
-                        <i class="ti ti-server"></i>
-                    </span>
-                    <span class="hide-menu">pembelian</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                <a class="sidebar-link" href="{{ url('retur') }}" aria-expanded="false">
-                    <span>
-                        <i class="ti ti-cards"></i>
-                    </span>
-                    <span class="hide-menu">retur pembelian</span>
-                    </a>
-                </li>
-                <li class="nav-small-cap">
-                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">Laporan</span>
-                </li>
-                <div class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('laporanbulanan') }}" aria-expanded="false">
+                    <a class="sidebar-link" href="#laporan" data-bs-toggle="collapse" aria-expanded="false">
                         <span>
-                            <i class="ti ti-file-text"></i>
+                            {{-- <i class="ti ti-file-text"></i> --}}
                         </span>
-                        <span class="hide-menu">Laporan Presensi</span>
+                        <span class="hide-menu"><b>Laporan</b></span>
+                        <span class="sidebar-dropdown-icon fas fa-chevron-down"></span>
                     </a>
-                </div>
-                               
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="./sample-page.html" aria-expanded="false">
-                    <span>
-                        <i class="ti ti-aperture"></i>
-                    </span>
-                    <span class="hide-menu">Sample Page</span>
-                    </a>
+                    <ul class="sidebar-submenu collapse" id="laporan">
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('laporanbulanan') }}">
+                                <span>
+                                    <i class="ti ti-file-text"></i>
+                                </span>
+                                <span class="hide-menu">Laporan Presensi</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <br>
                 <br>

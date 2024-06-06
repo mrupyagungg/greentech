@@ -10,7 +10,7 @@
             <form id="filter-form">
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="month">Bulan</label>
+                        <label for="month">Pilih Bulan</label>
                         <input type="month" name="month" id="month" class="form-control">
                     </div>
                 </div>
