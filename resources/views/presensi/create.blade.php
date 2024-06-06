@@ -41,8 +41,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="check_in">Status Kehadiran:</label>
-                            <select class="form-control" id="check_in" name="check_in" required>
+                            <label for="absen">Status Kehadiran:</label>
+                            <select class="form-control" id="absen" name="absen" required>
                                 <option value="">...</option>
                                 <option value="hadir">Hadir</option>
                                 <option value="alfa">Alfa</option>
@@ -50,6 +50,12 @@
                                 <option value="izin">Izin</option>
                             </select>
                         </div>
+
+                        <div class="form-group">
+                            <label for="tanggal">Tanggal</label>
+                            <input type="date" class="form-control" id="tanggal" name="tanggal" required>
+                        </div>
+                        
                         
                         <div class="form-group" id="image-upload" style="display: none;">
                             <label for="image">Unggah Foto:  <span style="color: red">*</span></label>
@@ -58,7 +64,7 @@
                         
                         <script>
                             // Mengubah tampilan input foto berdasarkan pilihan status kehadiran
-                            document.getElementById('check_in').addEventListener('change', function() {
+                            document.getElementById('absen').addEventListener('change', function() {
                                 var selectedValue = this.value;
                                 var imageUploadDiv = document.getElementById('image-upload');
                                 if (selectedValue === 'sakit' || selectedValue === 'izin') {

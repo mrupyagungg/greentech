@@ -12,7 +12,7 @@ class Presensi extends Model
     protected $table = 'presensi';
 
     // List of fillable columns
-    protected $fillable = ['kode_presensi', 'nama_pegawai', 'check_in','image'];
+    protected $fillable = ['kode_presensi', 'nama_pegawai', 'absen','tanggal','image'];
 
     /**
      * Get the latest presensi code and generate the next one.

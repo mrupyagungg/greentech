@@ -16,16 +16,28 @@ class PresensiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $presensi = Presensi::all(); // Gunakan nama model dengan benar
+        // Mengambil semua data pegawai
         $pegawai = PegawaiModel::all();
 
+        // Inisialisasi query untuk presensi
+        $query = Presensi::query();
+
+        // Filter berdasarkan bulan jika ada input
+        if ($request->filled('month')) {
+            $query->whereMonth('absen', Carbon::parse($request->month)->month)
+                  ->whereYear('absen', Carbon::parse($request->month)->year);
+        }
+
+        // Mendapatkan hasil query
+        $presensi = $query->get();
+
+        // Mengembalikan view dengan data presensi dan pegawai
         return view('presensi.index', [
             'presensi' => $presensi,
             'pegawai' => $pegawai,
         ]);
-
     }
 
     /**
@@ -63,7 +75,8 @@ class PresensiController extends Controller
             $request->validate([
                 'kode_presensi' => 'required',
                 'nama_pegawai' => 'required|string',
-                'check_in' => 'required',
+                'absen' => 'required',
+                'tanggal' => 'required',
                 'image' => 'image|mimes:jpeg,png,jpg|max:2048', // Validate image
             ]);
         
@@ -71,7 +84,8 @@ class PresensiController extends Controller
             $presensi = Presensi::create([
                 'kode_presensi' => $request->kode_presensi,
                 'nama_pegawai' => $request->nama_pegawai,
-                'check_in' => $request->check_in,
+                'absen' => $request->absen,
+                'tanggal' => $request->tanggal,
             ]);
         
             // Simpan gambar ke dalam penyimpanan

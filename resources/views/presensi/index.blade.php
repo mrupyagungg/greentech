@@ -50,21 +50,21 @@
                       <div class="table-responsive">
                           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                   <thead class="thead-dark">
-                                    <tr style="background-color: rgb(230, 230, 230)">
+                                    <tr>
                                         <th>Kode Presensi</th>
                                         <th>Nama Pegawai</th>
-                                        <th>Status</th>
-                                        <th>Time</th>
-                                        <th>Action</th>
+                                        <th>absen</th>
+                                        <th>Check In</th>
+                                        <th>action</th>
                                     </tr>
                                   </thead>
                                   <tfoot class="thead-dark">
                                     <tr style="background-color: rgb(230, 230, 230)">
                                         <th>Kode Presensi</th>
                                         <th>Nama Pegawai</th>
-                                        <th>Status</th>
-                                        <th>Time</th>
-                                        <th>Action</th>
+                                        <th>absen</th>
+                                        <th>Check In</th>
+                                        <th>action</th>
                                     </tr>
                                </tfoot>
                               <tbody>
@@ -72,16 +72,12 @@
                                 <tr>
                                     <td>{{ $pres->kode_presensi }}</td>
                                     <td>{{ $pres->nama_pegawai }}</td> 
-                                    <td>{{ $pres->check_in }}</td>
-                                    <td>{{ $pres->updated_at }}</td>
-                                    
+                                    <td>{{ $pres->absen }}</td>
+                                    <td>{{ $pres->tanggal }}</td>
+                                                                        
                                     <td style="text-align: center">
                                         <!-- Tombol untuk menampilkan detail, edit, dan hapus -->
-                                        <a class="btn btn-primary" href="{{ route('presensi.show',$pres->id) }}"><i class="fas fa-eye"></i></a>
-                                        {{-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#editModal{{ $pres->id }}">
-                                            <i class="fas fa-edit"></i>
-                                        </button> --}}
-                                        
+                                        <a class="btn btn-primary" href="{{ route('presensi.show',$pres->id) }}"><i class="fas fa-eye"></i></a>                                       
                                         <button class="btn btn-danger" onclick="confirmDelete('{{ $pres->id }}', '{{ $pres->nama_pegawai }}')"> <i class="fas fa-trash"></i></button>
                                     </td>
                                 </tr>

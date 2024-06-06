@@ -17,8 +17,8 @@ class LaporanPresensi extends Controller
     // Mengambil data presensi bulanan berdasarkan periode
     public function viewlaporanbulanan($periode)
     {
-        $presensi = Presensi::whereMonth('check_in', Carbon::parse($periode)->month)
-                            ->whereYear('check_in', Carbon::parse($periode)->year)
+        $presensi = Presensi::whereMonth('tanggal', Carbon::parse($periode)->month)
+                            ->whereYear('tanggal', Carbon::parse($periode)->year)
                             ->get();
 
         if($presensi->count() > 0)

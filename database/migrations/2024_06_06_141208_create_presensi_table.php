@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePresensisTable extends Migration
+class CreatePresensiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,7 +17,8 @@ class CreatePresensisTable extends Migration
             $table->id();
             $table->string('kode_presensi', 6);
             $table->string('nama_pegawai', 50);
-            $table->string('check_in');
+            $table->string('absen');
+            $table->date('tanggal');
             $table->string('image')->nullable();
             $table->timestamps();
         });

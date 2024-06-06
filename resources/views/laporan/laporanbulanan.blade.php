@@ -21,10 +21,10 @@
             <table class="table mt-4" id="presensi-table">
                 <thead>
                     <tr>
-                        <th>Nama Pengguna</th>
+                        <th>Kode Presensi</th>
+                        <th>Nama Pegawai</th>
+                        <th>Absen</th>
                         <th>Tanggal</th>
-                        <th>Check In</th>
-                        <th>Check Out</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,10 +48,10 @@
                         data.presensi.forEach(presensi => {
                             const row = document.createElement('tr');
                             row.innerHTML = `
-                                <td>${presensi.user_id}</td>
-                                <td>${presensi.check_in}</td>
-                                <td>${presensi.check_in}</td>
-                                <td>${presensi.check_out}</td>
+                                <td>${presensi.kode_presensi}</td>
+                                <td>${presensi.nama_pegawai}</td>
+                                <td>${presensi.absen}</td>
+                                <td>${presensi.tanggal}</td>
                             `;
                             tableBody.appendChild(row);
                         });
