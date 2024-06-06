@@ -86,11 +86,11 @@
                                                 <td>{{ $data->no_transaksi }}</td>
                                                 <td>{{ $data->kode_supplier }}</td>
                                                 <td>{{ $data->nama_barang }}</td>
-                                                <td>{{ $data->harga_beli }}</td>
+                                                <td>Rp. {{ $data->harga_beli }}</td>
                                                 <td>{{ $data->stok_tersedia }}</td>
                                                 <td>{{ $data->tgl_transaksi }}</td>
                                                 <td>{{ $data->tgl_expired }}</td>
-                                                <td>{{ $data->jumlah }}</td>
+                                                <td>Rp. {{ $data->jumlah }}</td>
                                                 <td class="aksi">
                                                     <!-- Tombol untuk menghapus -->
                                                     <form action="{{ route('pembelian.destroy', $data->id) }}" method="POST" style="display: inline;">

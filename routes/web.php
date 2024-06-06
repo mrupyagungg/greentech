@@ -12,6 +12,7 @@ use App\Http\Controllers\ReturController;
 use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\LaporanPresensi;
+use App\Http\Controllers\LaporanPembelian;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +45,7 @@ Route::get('/team', function () {
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
+Route::get('/dashboard-data', [DashboardController::class, 'getData']);
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
@@ -172,9 +173,10 @@ Route::get('/pembelians/{pembelian}/edit', [PembelianController::class, 'edit'])
 
 
 // laporanpresensi
-
-Route::get('/laporan/rekapitulasi', [LaporanController::class, 'rekapitulasi'])->name('laporan.rekapitulasi');
-
 Route::get('laporan/laporanbulanan', [LaporanPresensi::class, 'laporanbulanan'])->name('laporanbulanan');
 Route::get('/laporan/bulanan/{periode}', [LaporanPresensi::class, 'viewlaporanbulanan'])->name('laporan.laporanbulanan');
+
+// laporan pembelian
+Route::get('/laporan/laporanpembelian', [LaporanPembelian::class, 'laporanpembelian'])->name('laporanpembelian');
+Route::get('/laporan/pembelian/{periode}', [LaporanPembelian::class, 'viewlaporanpembelian'])->name('laporan.laporanpembelian');
 require __DIR__.'/auth.php';

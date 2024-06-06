@@ -30,8 +30,12 @@ class PembelianController extends Controller
      */
     public function create()
     {
-        $suppliers = Supplier::pluck('kode_supplier', 'id'); // Memuat daftar kode supplier
-        return view('pembelian.create', compact('suppliers'));  
+        $lastTransaction = Pembelian::latest()->first();
+        $lastTransactionId = $lastTransaction ? $lastTransaction->no_transaksi : 0;
+        $noTransaksi = $lastTransactionId + 1;
+        
+        $suppliers = Supplier::pluck('kode_supplier', 'id');
+        return view('pembelian.create', compact('suppliers', 'noTransaksi'));
     }
 
     /**
@@ -42,16 +46,19 @@ class PembelianController extends Controller
      */
     public function store(Request $request)
 {
+    $hargaBeli = $request->harga_beli;
+    $stokTersedia = $request->stok_tersedia;
+    $jumlah = $hargaBeli * $stokTersedia;
+
     Pembelian::create([
         'no_transaksi' => $request->no_transaksi,
         'kode_supplier' => $request->kode_supplier,
         'nama_barang' => $request->nama_barang,
-        'harga_beli' => $request->harga_beli,
-        'stok_tersedia' => $request->stok_tersedia,
-        'jumlah' => $request->jumlah,
+        'harga_beli' => $hargaBeli,
+        'stok_tersedia' => $stokTersedia,
+        'jumlah' => $jumlah,
         'tgl_transaksi' => $request->tgl_transaksi,
         'tgl_expired' => $request->tgl_expired,
-        
     ]);
 
     return redirect()->route('pembelian.index')->with('success', 'Pembelian berhasil ditambahkan.');

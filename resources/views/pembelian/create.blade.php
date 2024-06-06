@@ -26,31 +26,25 @@
                                 <label for="nama_barang">Nama Barang</label>
                                 <input type="text" class="form-control" id="nama_barang" name="nama_barang" required>
                             </div>
+                            <!-- Nomor Transaksi (hidden input) -->
+                            <input type="hidden" name="no_transaksi" value="{{ $noTransaksi }}">
+                            
                             <div class="form-group">
-                                <label for="no_transaksi">no_transaksi</label>
-                                <input type="text" class="form-control" id="no_transaksi" name="no_transaksi" required>
+                                <label for="stok_tersedia">Stok Tersedia</label>
+                                <input type="number" class="form-control" id="stok_tersedia" name="stok_tersedia" required>
                             </div>
                             <div class="form-group">
-                                <label for="stok_tersedia">stok_tersedia</label>
-                                <input type="text" class="form-control" id="stok_tersedia" name="stok_tersedia" required>
+                                <label for="harga_beli">Harga Beli</label>
+                                <input type="number" class="form-control" id="harga_beli" name="harga_beli" required>
                             </div>
                             <div class="form-group">
-                                <label for="harga_beli">harga_beli</label>
-                                <input type="text" class="form-control" id="harga_beli" name="harga_beli" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="tgl_transaksi">tgl_transaksi</label>
+                                <label for="tgl_transaksi">Tanggal Transaksi</label>
                                 <input type="date" class="form-control" id="tgl_transaksi" name="tgl_transaksi" required>
                             </div>
                             <div class="form-group">
-                                <label for="tgl_expired">tgl_expired</label>
+                                <label for="tgl_expired">Tanggal Expired</label>
                                 <input type="date" class="form-control" id="tgl_expired" name="tgl_expired" required>
                             </div>
-                            <div class="form-group">
-                                <label for="jumlah">Jumlah</label>
-                                <input type="number" class="form-control" id="jumlah" name="jumlah" required>
-                            </div>
-                            <!-- tambahkan form untuk supplier jika diperlukan -->
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </form>
                     </div>

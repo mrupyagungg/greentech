@@ -1,15 +1,22 @@
-    <body>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap">
+<style>
+    .hide-menu{
+        font-family: 'Montserrat', sans-serif;
+    }
+</style>
+   <body>
         <!--  Body Wrapper -->
         <div class="page-wrapper " id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
 
         <!-- Sidebar Start -->
-        <aside class="left-sidebar" id="accordionSidebar" style="background-color: yellow">
+        <aside class="left-sidebar" id="accordionSidebar" style="background-color: rgb(248, 235, 0)">
             <!-- Sidebar scroll-->
             <div>
             <div class="brand-logo d-flex align-items-center justify-content-between">
                 <a href="./index.html" class="text-nowrap logo-img">
-                <img src="{{asset('img/logo1.png')}}" width="180" alt="" />
+                {{-- <img src="{{asset('img/logo1.png')}}" width="180" alt="" /> --}}
                 </a>
 
                 <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
@@ -28,9 +35,9 @@
                             </div>
                             <div class="user-content hide-menu m-t-2">
                             <a href="#" class="" id="Userdd" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                               <br> <h5 class="m-b-0 user-name font-medium">{{ Auth::user()->name }}</h5>
+                               <br> <h5 class="m-b-0 user-name font-medium"  style="font-family: 'Open Sans', sans-serif;">{{ Auth::user()->name }}</h5>
                             </a>
-                                <span class="op-5 user-email">{{ Auth::user()->email }}</span>
+                                <span class="op-5 user-email" style="font-family: 'Open Sans', sans-serif;">{{ Auth::user()->email }}</span>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="Userdd">
                                 <a class="dropdown-item" href="team"></i> My Team</a>
                                 <div class="dropdown-divider"></div>
@@ -161,6 +168,14 @@
                                     <i class="ti ti-file-text"></i>
                                 </span>
                                 <span class="hide-menu">Laporan Presensi</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('laporanbulanan') }}">
+                                <span>
+                                    <i class="ti ti-file-text"></i>
+                                </span>
+                                <span class="hide-menu">Laporan Pembelian</span>
                             </a>
                         </li>
                     </ul>
