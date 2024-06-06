@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pembelian;
+use Illuminate\Http\Request;
+use App\Models\Supplier;
+use Carbon\Carbon;
 use App\Http\Requests\StorePembelianRequest;
 use App\Http\Requests\UpdatePembelianRequest;
+
 
 class PembelianController extends Controller
 {
@@ -26,7 +30,8 @@ class PembelianController extends Controller
      */
     public function create()
     {
-        return view('pembelian.create');   
+        $suppliers = Supplier::pluck('kode_supplier', 'id'); // Memuat daftar kode supplier
+        return view('pembelian.create', compact('suppliers'));  
     }
 
     /**
@@ -36,10 +41,22 @@ class PembelianController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        Pembelian::create($request->all());
-        return redirect()->route('pembelian.index')->with('success', 'Pembelian berhasil ditambahkan.');
-    }
+{
+    Pembelian::create([
+        'no_transaksi' => $request->no_transaksi,
+        'kode_supplier' => $request->kode_supplier,
+        'nama_barang' => $request->nama_barang,
+        'harga_beli' => $request->harga_beli,
+        'stok_tersedia' => $request->stok_tersedia,
+        'jumlah' => $request->jumlah,
+        'tgl_transaksi' => $request->tgl_transaksi,
+        'tgl_expired' => $request->tgl_expired,
+        
+    ]);
+
+    return redirect()->route('pembelian.index')->with('success', 'Pembelian berhasil ditambahkan.');
+}
+
 
     /**
      * Display the specified resource.

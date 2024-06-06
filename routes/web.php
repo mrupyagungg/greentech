@@ -167,6 +167,9 @@ Route::put('/retur/{retur}', [ReturController::class, 'update'])->name('retur.up
 Route::get('/pembelian', [PembelianController::class, 'index'])->name('pembelian.index');
 Route::get('/pembelian/create', [PembelianController::class, 'create'])->name('pembelian.create');
 Route::post('/pembelian', [PembelianController::class, 'store'])->name('pembelian.store');
+Route::delete('/pembelians/{pembelian}', [PembelianController::class, 'destroy'])->name('pembelian.destroy');
+Route::get('/pembelians/{pembelian}/edit', [PembelianController::class, 'edit'])->name('pembelian.edit');
+
 
 // laporanpresensi
 

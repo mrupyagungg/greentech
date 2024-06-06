@@ -57,26 +57,26 @@
                                         <thead class="thead-dark">
                                             <tr>
                                                 <th>No Trans</th>
-                                                <th>Nama Barang</th>
                                                 <th>Kode Supplier</th>
+                                                <th>Nama Barang</th>
                                                 <th>Harga Beli</th>
-                                                <th>Stok</th>
-                                                <th>Tanggal Pembelian</th>
-                                                <th>Jatuh Tempo</th>
                                                 <th>Jumlah</th>
+                                                <th>Tanggal Pembelian</th>
+                                                <th>Tanggal Expired</th>
+                                                <th>Grand total</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tfoot class="thead-dark">
                                             <tr>
                                                 <th>No Trans</th>
-                                                <th>Nama Barang</th>
                                                 <th>Kode Supplier</th>
+                                                <th>Nama Barang</th>
                                                 <th>Harga Beli</th>
-                                                <th>Stok</th>
-                                                <th>Tanggal Pembelian</th>
-                                                <th>Jatuh Tempo</th>
                                                 <th>Jumlah</th>
+                                                <th>Tanggal Pembelian</th>
+                                                <th>Tanggal Expired</th>
+                                                <th>Grand Total</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </tfoot>
@@ -84,11 +84,12 @@
                                             @foreach ($pembelian as $data)
                                             <tr>
                                                 <td>{{ $data->no_transaksi }}</td>
-                                                <td>{{ $data->nama_barang }}</td>
                                                 <td>{{ $data->kode_supplier }}</td>
-                                                <td>{{ $data->harga_beli }}</td>
+                                                <td>{{ $data->nama_barang }}</td>
                                                 <td>{{ $data->harga_beli }}</td>
                                                 <td>{{ $data->stok_tersedia }}</td>
+                                                <td>{{ $data->tgl_transaksi }}</td>
+                                                <td>{{ $data->tgl_expired }}</td>
                                                 <td>{{ $data->jumlah }}</td>
                                                 <td class="aksi">
                                                     <!-- Tombol untuk menghapus -->
