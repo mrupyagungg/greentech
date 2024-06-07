@@ -3,7 +3,7 @@
 @section('konten')
     <div class="container">
 
-        <div class="container">
+        <div class="body-wrapper">
             <h1>Laporan Presensi Bulanan</h1>
         
             <!-- Filter Form -->
@@ -65,4 +65,5 @@
                 });
         });
         </script>
+    </div>
 @endsection

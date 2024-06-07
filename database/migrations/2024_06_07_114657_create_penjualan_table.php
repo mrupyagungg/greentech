@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePenjualansTable extends Migration
+class CreatePenjualanTable extends Migration
 {
     /**
      * Run the migrations.
@@ -33,5 +33,5 @@ class CreatePenjualansTable extends Migration
     public function down()
     {
         Schema::dropIfExists('penjualan');
-    }
+}
 }

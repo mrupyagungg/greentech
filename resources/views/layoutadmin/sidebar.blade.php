@@ -171,7 +171,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{ route('laporanbulanan') }}">
+                            <a class="sidebar-link" href="{{ route('laporanpembelian') }}">
                                 <span>
                                     <i class="ti ti-file-text"></i>
                                 </span>

@@ -2,7 +2,8 @@
 
 @section('konten')
     <div class="container">
-        <h1>Laporan Pembelian Bulanan</h1>
+        <div class="body-wrapper">
+            <h1>Laporan Pembelian Bulanan</h1>
 
         <!-- Filter Form -->
         <form id="filter-form">
@@ -43,6 +44,7 @@
                 <!-- Data pembelian akan diisi melalui AJAX -->
             </tbody>
         </table>
+        </div>
     </div>
 
     <script type="text/javascript">

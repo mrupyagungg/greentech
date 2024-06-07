@@ -84,7 +84,7 @@ class BarangController extends Controller
     public function edit($id)
     {   
         $barang = Barang::findOrFail($id);
-        return view('barang.edit', compact('barang'));
+        return view('barang.edit', compact('barangs'));
     }
 
     /**

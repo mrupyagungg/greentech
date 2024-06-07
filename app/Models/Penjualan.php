@@ -20,7 +20,7 @@ class Penjualan extends Model
     public static function getBarang()
     {
         // query ke tabel barang
-        $sql = "SELECT * FROM barang";
+        $sql = "SELECT * FROM barangs";
         $barang = DB::select($sql);
         return $barang;
     }
@@ -28,7 +28,7 @@ class Penjualan extends Model
     // untuk melihat data barang berdasarkan id
     public static function getBarangId($id)
     {
-        $sql = "SELECT * FROM barang WHERE id = ?";
+        $sql = "SELECT * FROM barangs WHERE id = ?";
         $barang = DB::select($sql,[$id]);
         return $barang;
     }
@@ -71,7 +71,7 @@ class Penjualan extends Model
 
     // lihat stok barang
     public static function getStock($id_barang){
-        $sql = "SELECT stok FROM barang WHERE id = ?";
+        $sql = "SELECT stok FROM barangs WHERE id = ?";
         $barang = DB::select($sql,[$id_barang]);
         foreach($barang as $b):
             $stok = $b->stok;
