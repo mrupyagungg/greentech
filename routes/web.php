@@ -36,6 +36,10 @@ Route::get('/regist', function () {
     return view('regist');
 });
 
+// cuaca
+Route::get('/weather', [WeatherController::class, 'getWeather']);
+Route::get('/weather', [WeatherController::class, 'getWeather'])->name('weather.get');
+
 // Route ke master data perusahaan
 Route::resource('/pegawai', PegawaiController::class)->middleware(['auth']);
 Route::get('/pegawai/destroy/{id}', [PegawaiController::class, 'destroy'])->middleware(['auth']);

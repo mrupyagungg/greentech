@@ -7,23 +7,18 @@ use GuzzleHttp\Client;
 
 class WeatherController extends Controller
 {
-    public function getWeather()
+    public function getWeather(Request $request)
     {
-        // Tetapkan kota secara statis
-        $city = 'Bandung';
+        $city = $request->input('city');
         $apiKey = env('OPENWEATHERMAP_API_KEY');
-
-        // Buat klien Guzzle untuk mengirim permintaan ke API OpenWeatherMap
         $client = new Client();
         $response = $client->get("http://api.openweathermap.org/data/2.5/weather?q={$city}&appid={$apiKey}&units=metric");
         $data = json_decode($response->getBody(), true);
 
-        // Periksa apakah kota ditemukan
         if ($data['cod'] !== 200) {
             return response()->json(['error' => 'City not found'], 404);
         }
 
-        // Kirim data cuaca dalam bentuk respons JSON
         return response()->json([
             'temperature' => $data['main']['temp'],
             'pressure' => $data['main']['pressure'],
