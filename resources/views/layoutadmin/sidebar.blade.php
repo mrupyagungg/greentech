@@ -178,6 +178,14 @@
                                 <span class="hide-menu">Laporan Pembelian</span>
                             </a>
                         </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{ route('laporanretur') }}">
+                                <span>
+                                    <i class="ti ti-file-text"></i>
+                                </span>
+                                <span class="hide-menu">Laporan Retur</span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <br>

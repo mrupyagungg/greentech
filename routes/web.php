@@ -13,6 +13,7 @@ use App\Http\Controllers\PembelianController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\LaporanPresensi;
 use App\Http\Controllers\LaporanPembelian;
+use App\Http\Controllers\LaporanRetur;
 
 /*
 |--------------------------------------------------------------------------
@@ -183,4 +184,9 @@ Route::get('/laporan/bulanan/{periode}', [LaporanPresensi::class, 'viewlaporanbu
 // laporan pembelian
 Route::get('/laporan/laporanpembelian', [LaporanPembelian::class, 'laporanpembelian'])->name('laporanpembelian');
 Route::get('/laporan/pembelian/{periode}', [LaporanPembelian::class, 'viewlaporanpembelian'])->name('laporan.laporanpembelian');
+
+// laporan retur
+Route::get('/laporan/laporanretur', [LaporanRetur::class, 'laporanretur'])->name('laporanretur');
+Route::get('/laporan/retur/{periode}', [LaporanRetur::class, 'viewlaporanretur'])->name('laporan.laporanretur');
+
 require __DIR__.'/auth.php';
