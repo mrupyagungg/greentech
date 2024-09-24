@@ -14,7 +14,7 @@
                         <input type="month" name="month" id="month" class="form-control">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Filter</button>
+                <button type="submit" class="btn btn-primary">Pilih</button>
             </form>
         
             <!-- Table -->

@@ -4,6 +4,7 @@
 
     <!-- Main wrapper -->
     <div class="body-wrapper">
+        <center><h1>TEAM</h1></center>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3">
@@ -12,8 +13,8 @@
                         <div class="card-body">
                             <h5 class="card-title fw-semibold mb-4">MRUPY AGUNG</h5>
                             <p class="card-text">MASTERDATA : <span>PEGAWAI</span> </p>
-                            <p class="card-text">TRANSAKSI : </p>
-                            <p class="card-text">LAPORAN : </p>
+                            <p class="card-text">TRANSAKSI : <span>PRESENSI</span> </p>
+                            <p class="card-text">LAPORAN : <span>LAPORAN ABSENSI</span> </p>
                             <a href="#" class="btn btn-info"><i class="fab fa-instagram"></i></a>
                             <a href="https://github.com/mrupyagungg/greentech" target="_blank" class="btn btn-dark"><i class="fab fa-github"></i>
                             </a>
@@ -26,8 +27,8 @@
                         <div class="card-body">
                             <h5 class="card-title fw-semibold mb-4">HAIKAL FAKHRULLAH</h5>
                             <p class="card-text">MASTERDATA : <span>BARANG</span> </p>
-                            <p class="card-text">TRANSAKSI : </p>
-                            <p class="card-text">LAPORAN : </p>
+                            <p class="card-text">TRANSAKSI : <span>PENJUALAN</span> </p>
+                            <p class="card-text">LAPORAN : <span>LAPORAN PENJUALAN</span> </p>
                             <!-- Menggunakan ikon Instagram dari Font Awesome -->
                             <a href="https://www.instagram.com/m_haikalf/?igsh=anJid3hndGpzZDlq&utm_source=qr" target="_blank" class="btn btn-info"><i class="fab fa-instagram"></i></a>
                         </div>
@@ -40,8 +41,8 @@
                         <div class="card-body">
                             <h5 class="card-title fw-semibold mb-4">VASHYA CYLA</h5>
                             <p class="card-text">MASTERDATA : <span>COA</span> </p>
-                            <p class="card-text">TRANSAKSI : </p>
-                            <p class="card-text">LAPORAN : </p>
+                            <p class="card-text">TRANSAKSI : <span>SUPPLIER</span> </p>
+                            <p class="card-text">LAPORAN : <span>LAPORAN RETUR</span></p>
                             <a href="#" class="btn btn-info"><i class="fab fa-instagram"></i></a>
     
                         </div>
@@ -53,8 +54,8 @@
                         <div class="card-body">
                             <h5 class="card-title fw-semibold mb-4">SYAKIRA GAVRILLA</h5>
                             <p class="card-text">MASTERDATA : <span>PELANGGAN</span> </p>
-                            <p class="card-text">TRANSAKSI : </p>
-                            <p class="card-text">LAPORAN : </p>
+                            <p class="card-text">TRANSAKSI : <span>PEMBELIAN</span></p>
+                            <p class="card-text">LAPORAN : <span>LAPORAN PEMBELIAN</span></p>
                             <a href="https://www.instagram.com/syakiragavrilahh/" target="_blank" class="btn btn-info"><i class="fab fa-instagram"></i></a>
     
                         </div>
